@@ -99,15 +99,22 @@ ConsoleTest (const char *in, const char *out)
 	  ch = console->RX ();
 
       #ifdef CHANGED
+      console->TX('<'); //action II.3 
+      writeDone->P(); //wait for write to finish
+
 	  console->TX (ch);	// echo it!
 	  writeDone->P ();	// wait for write to finish
-	  if (ch == 'q') {
+
+      console->TX(ch);
+      writeDone->P(); //wait for write to finish
+      
+	  if (ch == 'q') { // (action II.2)
 	      //printf ("Nothing more, bye!\n");
           printf ("Au revoir\n");
 	      break;		// if q, quit
 	  }
 
-      if(ch == EOF){ //if read end of file
+      if(ch == EOF){ //if read end of file (action II.2)
           printf("Au revoir ! (EOF)\n");
       }
       #endif //CHANGED
