@@ -14,7 +14,7 @@
 #include "addrspace.h"
 #include "synch.h"
 
-#ifdef #ifdef CHANGED
+#ifdef CHANGED
 #include "stdio.h"
 #include "consoledriver.h"
 #endif // CHANGED
@@ -132,7 +132,7 @@ void
 ConsoleDriverTest (const char *in, const char *out)
 {
     char ch;
-    ConsoleDriver *test_console = new ConsoleDriver(in, out);
+    ConsoleDriver *test_consoledriver = new ConsoleDriver(in, out);
 
     while ((ch = test_consoledriver->GetChar()) != EOF)
     test_consoledriver->PutChar(ch);
