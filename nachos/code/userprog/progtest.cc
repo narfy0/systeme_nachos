@@ -14,6 +14,10 @@
 #include "addrspace.h"
 #include "synch.h"
 
+#ifdef #ifdef CHANGED
+#include "stdio.h"
+#endif // CHANGED
+
 //----------------------------------------------------------------------
 // StartProcess
 //      Run a user program.  Open the executable, load it into
@@ -103,6 +107,9 @@ ConsoleTest (const char *in, const char *out)
 	      break;		// if q, quit
 	  }
 
+      if(ch == EOF){ //if read end of file
+          printf("Au revoir ! (EOF)\n");
+      }
       #endif //CHANGED
       }
     delete console;
