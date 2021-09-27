@@ -16,6 +16,7 @@
 
 #ifdef #ifdef CHANGED
 #include "stdio.h"
+#include "consoledriver.h"
 #endif // CHANGED
 
 //----------------------------------------------------------------------
