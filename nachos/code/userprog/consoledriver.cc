@@ -27,37 +27,15 @@ ConsoleDriver::~ConsoleDriver()
 }
 
 void ConsoleDriver::PutChar(int ch)
-{ //ne doit pas ecrire \0 (cf le man de putchar)
-        // line under belongs to getchar and not putchar ?
-	  //readAvail->P ();	// wait for character to arrive
-	  // ch = console->RX (); // > get from COnsoleTest example
-
-      // if(ch != '\n' && ch != EOF){ //TODO check if this condition is necessary
-        //not necesarry to add '<' and '>' around each char ? like in action II.
-          console->TX(ch);
-	      writeDone->P ();	// wait for write to finish
-      //}
-
-    /** CHECK IF ITS NECESSARY
-	  if (ch == 'q') {
-	      //printf ("Nothing more, bye!\n");
-          printf("Au revoir\n");
-	      break;		// if q, quit
-	  }
-
-      // EOF 
-      if (ch == EOF){
-        printf("Au revoir ! (EOF)\n");
-        break;//if end of file, quit
-      }
-      **/
-
+{ 
+    console->TX(ch);
+	writeDone->P ();	// wait for write to finish
 }
 
 int ConsoleDriver::GetChar()
-{   //is it all ?
+{
     readAvail->P ();	// wait for character to arrive
-	return console->RX (); //TODO check it
+	return console->RX ();
 }
 
 void ConsoleDriver::PutString(const char s[])
