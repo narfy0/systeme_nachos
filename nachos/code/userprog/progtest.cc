@@ -100,16 +100,23 @@ ConsoleTest (const char *in, const char *out)
 	  ch = console->RX ();
 
       #ifdef CHANGED
-      if(ch != '\n' && ch != EOF){
-        console->TX('<'); //action II.3 
-        writeDone->P(); //wait for write to finish
+      if(ch != EOF){
+          if(ch == '\n'){ //if it's the end of the line
+            console->TX(ch);
+            writeDone->P();
+          } else {
+            console->TX('<'); //action II.3 
+            writeDone->P(); //wait for write to finish
 
-        console->TX (ch);	// echo it!
-        writeDone->P ();	// wait for write to finish
+            console->TX (ch);	// echo it!
+            writeDone->P ();	// wait for write to finish
 
-        console->TX(ch);
-        writeDone->P(); //wait for write to finish
+            console->TX('>');
+            writeDone->P(); //wait for write to finish
+          }
       }
+
+      
       
 	  if (ch == 'q') { // (action II.2)
 	      //printf ("Nothing more, bye!\n");
