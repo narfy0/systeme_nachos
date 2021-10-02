@@ -126,6 +126,7 @@ ConsoleTest (const char *in, const char *out)
 
       if(ch == EOF){ //if read end of file (action II.2)
           printf("Au revoir ! (EOF)\n");
+          break;
       }
       #endif //CHANGED
       }
