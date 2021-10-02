@@ -82,6 +82,24 @@ ExceptionHandler (ExceptionType which)
 		    interrupt->Powerdown ();
 		    break;
 		  }
+
+		#ifdef CHANGED
+		
+		case SC_PutChar:
+		  {
+			//to print debug message when this exception is called
+		    DEBUG ('s', "PutChar\n");
+			
+			//get the first arg from register 4
+		    char arg = machine->ReadRegister(4);
+			//call putchar() from ConsoleDriver
+			consoledriver->PutChar(arg); 
+
+		    break;
+		  }
+
+		#endif // CHANGED
+
 		default:
 		  {
 		    printf("Unimplemented system call %d\n", type);
