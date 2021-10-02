@@ -118,6 +118,11 @@ main (int argc, char **argv)
 	  if (!strcmp (*argv, "-x"))
 	    {			// run a user program
 		ASSERT (argc > 1);
+
+		#ifdef CHANGED //to initialize the driver
+		consoledriver = new ConsoleDriver(NULL, NULL);
+		#endif // CHANGED
+
 		StartProcess (*(argv + 1));
 		argCount = 2;
 	    }
