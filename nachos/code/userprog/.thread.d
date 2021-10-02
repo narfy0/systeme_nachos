@@ -6,4 +6,5 @@
  ../machine/translate.h ../bin/noff.h ../threads/list.h \
  ../threads/switch.h ../threads/synch.h ../threads/system.h \
  ../threads/scheduler.h ../machine/interrupt.h ../machine/stats.h \
- ../machine/timer.h ../machine/valgrind.h
+ ../machine/timer.h ../threads/../userprog/consoledriver.h \
+ ../machine/console.h ../machine/valgrind.h

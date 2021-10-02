@@ -6,4 +6,5 @@
  ../threads/list.h ../threads/utility.h ../threads/system.h \
  ../threads/thread.h ../threads/list.h ../machine/machine.h \
  ../threads/scheduler.h ../machine/interrupt.h ../machine/stats.h \
- ../machine/timer.h
+ ../machine/timer.h ../threads/../userprog/consoledriver.h \
+ ../machine/console.h

@@ -16,6 +16,10 @@
 #include "stats.h"
 #include "timer.h"
 
+#ifdef CHANGED
+#include "../userprog/consoledriver.h"
+#endif // CHANGED
+
 // Initialization and cleanup routines
 extern void Initialize (int argc, char **argv);	// Initialization,
 						// called before anything else
@@ -48,5 +52,11 @@ extern SynchDisk *synchDisk;
 #include "post.h"
 extern PostOffice *postOffice;
 #endif
+
+#ifdef CHANGED
+#ifdef USER_PROGRAM
+extern ConsoleDriver *consoledriver;
+#endif // USER_PROGRAM
+#endif // CHANGED
 
 #endif // SYSTEM_H
