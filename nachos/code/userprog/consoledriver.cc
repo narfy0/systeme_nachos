@@ -62,4 +62,16 @@ void ConsoleDriver::GetString(char *s, int n)
     // ...
 }
 
+/**
+ * Copy a string, char by char, from MIPS world (using "from" address in args)
+ * to the kernel world (using "to" address in args). Use ReadMem() method.
+ * Stop when copy '\0' which have to be here in order to ensure system's security
+ * 
+ * Returns number of copied characters
+ **/
+int copyStringFromMachine(int from, char *to, unsigned size)
+{
+    //...
+}
+
 #endif //CHANGED
