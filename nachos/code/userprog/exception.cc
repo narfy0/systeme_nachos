@@ -97,6 +97,9 @@ ExceptionHandler (ExceptionType which)
 
 		    break;
 		  }
+		
+		//case to add PutString syscall
+		
 
 		#endif // CHANGED
 
