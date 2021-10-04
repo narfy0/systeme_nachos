@@ -42,17 +42,9 @@ void ConsoleDriver::PutString(const char s[])
 {
     #ifdef CHANGED
     int i;
-    int isEndOfString = 0;
-    for(i = 0; isEndOfString; i++){ //to "read" all the char tab
-        char currentChar = s[i];
-
+    for(i = 0; s[i] == '\0'; i++){ //to "read" all the char tab
         //put the current char
-        PutChar(currentChar);
-
-        //if it's the end of the string
-        if(currentChar == '\0'){
-            isEndOfString = 1; //switch this value to stop the for loop
-        }
+        PutChar(s[i]);
     }
     #endif // CHANGED
 }
