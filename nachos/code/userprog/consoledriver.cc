@@ -8,9 +8,6 @@
 static Semaphore *readAvail;
 static Semaphore *writeDone;
 
-//kernel buffer (action V.2)
-static int* *kernelBuffer;
-
 static void ReadAvailHandler(void *arg) { (void) arg; readAvail->V(); }
 static void WriteDoneHandler(void *arg) { (void) arg; writeDone->V(); }
 
@@ -66,25 +63,21 @@ void ConsoleDriver::GetString(char *s, int n)
  **/
 int copyStringFromMachine(int from, char *to, unsigned size)
 {
-    char t[size]; 
     int* value;
 
     //loop and check '\0' OR size
     int i;
     int tmp;
     for(i = 0; i < size && tmp != '\0'; i++){
-        //read string from Nachos memory, and put it into t[]
+        //read string from Nachos memory, and put it into 'to'
         machine->ReadMem(from + i, 1, &tmp);
-        t[i] = tmp; //sure that it's in [0; 255] so it's a char
+        to[i] = tmp; //sure that it's in [0; 255] so it's a char
     }
     
     // if dont have '\0', add it (rewrite the last char)
     if(tmp != '\0'){
-        t[i] = '\0'; 
+        to[i] = '\0'; 
     }
-
-    //set kernel buffer
-    kernelBuffer = &t; //TODO check if it's correct
  
     //return postion of '\0' <=> number of char read or write '\0' include
     return i+1;
