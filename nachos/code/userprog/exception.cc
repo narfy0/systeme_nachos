@@ -25,6 +25,10 @@
 #include "system.h"
 #include "syscall.h"
 
+#ifdef CHANGED
+#include "consoledriver.h" //TODO I think it's not necessary to add it, but error ocurrs if I dont add it SO FIX IT
+#endif //CHANGED
+
 //----------------------------------------------------------------------
 // UpdatePC : Increments the Program Counter register in order to resume
 // the user program immediately after the "syscall" instruction.
@@ -103,13 +107,13 @@ ExceptionHandler (ExceptionType which)
 		case SC_PutString:
 		{
 			//to print debug message when this exception is called
-			DEBUG('s', 'PutString\n');
+			DEBUG('s', "PutString\n");
 
 			//get the arg from register 4
 			int argAddr = machine->ReadRegister(4);
 
 			//kernel address where is the string
-			char* stringAddr;
+			char *stringAddr = NULL;
 
 			//number of written char
 			int writtenChar = 0; //TODO change it
@@ -118,7 +122,7 @@ ExceptionHandler (ExceptionType which)
 			consoledriver->copyStringFromMachine(argAddr, stringAddr, writtenChar);
 
 			//call putstring() from consoleDriver
-			consoledriver->PutChar(stringAddr);
+			consoledriver->PutString(stringAddr);
 
 			break;
 		}

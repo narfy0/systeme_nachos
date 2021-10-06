@@ -61,7 +61,7 @@ void ConsoleDriver::GetString(char *s, int n)
  * 
  * Returns number of copied characters
  **/
-int copyStringFromMachine(int from, char *to, unsigned size)
+int ConsoleDriver::copyStringFromMachine(int from, char *to, unsigned size)
 {
     int* value;
 
