@@ -99,6 +99,29 @@ ExceptionHandler (ExceptionType which)
 		  }
 		
 		//case to add PutString syscall
+
+		case SC_PutString:
+		{
+			//to print debug message when this exception is called
+			DEBUG('s', 'PutString\n');
+
+			//get the arg from register 4
+			int argAddr = machine->ReadRegister(4);
+
+			//kernel address where is the string
+			char* stringAddr;
+
+			//number of written char
+			int writtenChar = 0; //TODO change it
+
+			//copy a String from MIPS memory to a kernel pointer
+			consoledriver->copyStringFromMachine(argAddr, stringAddr, writtenChar);
+
+			//call putstring() from consoleDriver
+			consoledriver->PutChar(stringAddr);
+
+			break;
+		}
 		
 
 		#endif // CHANGED
