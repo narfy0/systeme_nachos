@@ -116,7 +116,7 @@ ExceptionHandler (ExceptionType which)
 			char *stringAddr = NULL;
 
 			//number of written char
-			int writtenChar = 0; //TODO change it
+			int writtenChar = 5; //TODO change it
 
 			//copy a String from MIPS memory to a kernel pointer
 			consoledriver->copyStringFromMachine(argAddr, stringAddr, writtenChar);
