@@ -42,7 +42,7 @@ void ConsoleDriver::PutString(const char s[])
 {
     #ifdef CHANGED
     int i;
-    for(i = 0; s[i] == '\0'; i++){ //to "read" all the char tab
+    for(i = 0; s[i] != '\0'; i++){ //to "read" all the char tab
         //put the current char
         PutChar(s[i]);
     }
