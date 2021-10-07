@@ -141,6 +141,10 @@ void Yield ();
  */
 void PutChar(char c);
 
+/* To do I/O action in order to print string
+ */
+void PutString(const char s[]);
+
 #endif // CHANGED
 
 #endif // IN_USER_MODE
