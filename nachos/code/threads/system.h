@@ -59,7 +59,7 @@ extern ConsoleDriver *consoledriver;
 #endif // USER_PROGRAM
 
 //constant for string buffer max size (action V.3)
-const int MAX_STRING_SIZE = 0; //TODO change its value
+const int MAX_STRING_SIZE = 10; //TODO change its value
 
 #endif // CHANGED
 

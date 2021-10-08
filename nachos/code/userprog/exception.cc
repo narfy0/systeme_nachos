@@ -113,7 +113,7 @@ ExceptionHandler (ExceptionType which)
 			int argAddr = machine->ReadRegister(4);
 
 			//kernel address where is the string
-			char stringAddr[5];
+			char stringAddr[MAX_STRING_SIZE];
 
 			//number of written char
 			int writtenChar = 5; //TODO change it
