@@ -133,10 +133,10 @@ ExceptionHandler (ExceptionType which)
 			DEBUG('s', "GetChar\n");
 			
 			//get a char from the stream
-			consoledriver->GetString();
+			//consoledriver->GetString();
 
 			//write read char to register 2
-			machine->WriteRegister (2, returnedChar);
+			//machine->WriteRegister (2, returnedChar);
 			
 			break;
 		}		
