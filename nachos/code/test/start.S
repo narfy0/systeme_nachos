@@ -164,8 +164,8 @@ PutString:
 
 	.globl GetChar
 	.ent	GetChar
-PutString:
-	addiu $2,$0,SC_PutString
+GetChar:
+	addiu $2,$0,SC_GetChar
 	syscall
 	j	$31
 	.end GetChar
