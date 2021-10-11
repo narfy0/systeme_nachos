@@ -27,6 +27,8 @@
 
 #ifdef CHANGED
 #include "consoledriver.h" //TODO I think it's not necessary to add it, but error ocurrs if I dont add it SO FIX IT
+
+#include "userthread.h"
 #endif //CHANGED
 
 //----------------------------------------------------------------------
@@ -133,13 +135,34 @@ ExceptionHandler (ExceptionType which)
 			DEBUG('s', "GetChar\n");
 			
 			//get a char from the stream
-			consoledriver->GetString();
+			int returnedChar = consoledriver->GetChar();
 
 			//write read char to register 2
 			machine->WriteRegister (2, returnedChar);
 			
 			break;
-		}		
+		}
+
+		case SC_GetString:
+		{
+			//to print debug message when this exception is called
+			DEBUG('s', "GetString\n");
+
+			break;
+		}
+
+		case SC_ThreadCreate:
+		{
+			//to print debug message when this exception is called
+			DEBUG('s', "ThreadCreate\n");
+
+			int f = machine->ReadRegister(4);
+			int arg = machine->ReadRegister(5);
+
+			do_ThreadCreate(f, arg);
+
+			break;
+		}
 
 		#endif // CHANGED
 

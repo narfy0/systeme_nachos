@@ -37,6 +37,8 @@
 #define SC_PutString 12
 #define SC_GetChar 13
 #define SC_GetString 14
+
+#define SC_ThreadCreate 15
 #endif // CHANGED
 
 #ifdef IN_USER_MODE
@@ -58,7 +60,7 @@
 /* Stop Nachos, and print out performance stats */
 void Halt () __attribute__ ((__noreturn__));
 
-
+int do_ThreadCreate(int f, int arg);
 /* Address space control operations: Exit, Exec, and Join */
 
 /* This user program is done (status = 0 means exited normally). */
@@ -154,6 +156,11 @@ int GetChar();
 /* To do I/O action in order to read a string from stream
  */
 void GetString(char *s, int n);
+
+
+/*To create a user thread
+*/
+int do_ThreadCreate(int f, int arg);
 
 #endif // CHANGED
 
