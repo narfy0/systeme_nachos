@@ -146,6 +146,10 @@ void PutChar(char c);
  */
 void PutString(const char s[]);
 
+/* To do I/O action in order to read character from stream
+ */
+int GetChar(); 
+
 #endif // CHANGED
 
 #endif // IN_USER_MODE
