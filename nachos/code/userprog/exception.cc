@@ -164,6 +164,16 @@ ExceptionHandler (ExceptionType which)
 			break;
 		}
 
+		case SC_ThreadExit:
+		{
+			//to print debug message when this exception is called
+			DEBUG('s', "ThreadExit\n");
+
+			do_ThreadExit();
+
+			break;
+		}
+
 		#endif // CHANGED
 
 		default:

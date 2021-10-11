@@ -186,6 +186,14 @@ ThreadCreate:
 	j	$31
 	.end ThreadCreate
 
+	.globl ThreadExit
+	.ent	ThreadExit
+ThreadExit:
+	addiu $2,$0,SC_ThreadExit
+	syscall
+	j	$31
+	.end ThreadExit
+
 /* dummy function to keep gcc happy */
         .globl  __main
         .ent    __main

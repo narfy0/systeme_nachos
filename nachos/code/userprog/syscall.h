@@ -39,6 +39,7 @@
 #define SC_GetString 14
 
 #define SC_ThreadCreate 15
+#define SC_ThreadExit 16
 #endif // CHANGED
 
 #ifdef IN_USER_MODE
@@ -161,6 +162,10 @@ void GetString(char *s, int n);
 /*To create a user thread
 */
 int do_ThreadCreate(int f, int arg);
+
+/*To kill a thread
+*/
+void do_ThreadExit();
 
 #endif // CHANGED
 
