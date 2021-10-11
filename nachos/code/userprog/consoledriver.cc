@@ -51,7 +51,22 @@ void ConsoleDriver::PutString(const char s[])
 
 void ConsoleDriver::GetString(char *s, int n)
 {
-    // ...
+    #ifdef CHANGED
+    int i;
+    char c;
+    for(i = 0; i < n; i++){ //to "read" all the char tab
+        //put the current char
+        c = GetChar();
+        *s = c;
+        s++;
+        
+        if(c == '\n' || c == EOF){
+            break;
+        }
+        
+    }
+    *s = '\0';
+    #endif // CHANGED
 }
 
 /**
