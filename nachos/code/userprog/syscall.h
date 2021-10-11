@@ -36,6 +36,7 @@
 #define SC_PutChar 11
 #define SC_PutString 12
 #define SC_GetChar 13
+#define SC_GetString 14
 #endif // CHANGED
 
 #ifdef IN_USER_MODE
@@ -149,6 +150,10 @@ void PutString(const char s[]);
 /* To do I/O action in order to read character from stream
  */
 int GetChar(); 
+
+/* To do I/O action in order to read a string from stream
+ */
+void GetString(char *s, int n);
 
 #endif // CHANGED
 
