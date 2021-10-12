@@ -133,13 +133,21 @@ ExceptionHandler (ExceptionType which)
 			DEBUG('s', "GetChar\n");
 			
 			//get a char from the stream
-			//consoledriver->GetString();
+			int returnedChar  = consoledriver->GetChar();
 
 			//write read char to register 2
-			//machine->WriteRegister (2, returnedChar);
+			machine->WriteRegister (2, returnedChar);
 			
 			break;
-		}		
+		}	
+
+		case SC_GetString:
+		{
+			//to print debug message when this exception is called
+			DEBUG('s', "GetString\n");
+
+			break;
+		}	
 
 		#endif // CHANGED
 
