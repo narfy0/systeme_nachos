@@ -98,4 +98,20 @@ int ConsoleDriver::copyStringFromMachine(int from, char *to, unsigned size)
     return i+1;
 }
 
+void ConsoleDriver::copyStringToMachine(int from, char *to, unsigned size){
+
+    //get the first char in the user buffer
+    tmp = to[0];
+
+    for(i = 0; i < size && tmp != '\0'; i++){
+        //read string from Nachos memory, and put it into 'to'
+        machine->WriteMem(from + i, 1, &tmp);
+    }
+    
+    // if dont have '\0', add it (rewrite the last char)
+    if(tmp != '\0'){
+        to[i] = '\0'; 
+    }
+}
+
 #endif //CHANGED
