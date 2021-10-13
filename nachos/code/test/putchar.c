@@ -57,7 +57,12 @@ void endOfFile_test()
 int main()
 {
     print('a', 4);
-    Halt();
+    normal_test();
+    //empty_test();
+    breakLine_test();
+    //endOfLine_test();
+
+    //Halt();
 }
 
 #endif //CHANGED

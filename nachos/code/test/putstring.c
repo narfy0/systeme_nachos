@@ -15,15 +15,17 @@ void print(char c[])
  * To test a normal usage of PutString, with a regular buffer
  */
 void printNormalString(){
-    char s[5];
+    char s[6];
     
     s[0]= 't';
     s[1]= 'e';
     s[2]= 's';
     s[3]= 't';
-    s[4]= '\0';
+    s[4] = '1';
+    s[5]= '\0';
 
     PutString(s);
+    PutChar('\n');
 }
 
 /**
@@ -32,6 +34,7 @@ void printNormalString(){
 void printEmptyString(){
     char s_1[5];
     PutString(s_1);
+    PutChar('\n');
 }
 
 /**
@@ -50,6 +53,7 @@ void printUnfinishedString(){
     s[5]= 't';
 
     PutString(s);
+    PutChar('\n');
 }
 
 /**
@@ -69,6 +73,7 @@ void printEndForcedString(){
     s[7]= 'x';    
  
     PutString(s);
+    PutChar('\n');
 }
 
 /**
@@ -76,7 +81,11 @@ void printEndForcedString(){
  * expectation : print nothing and return 1 (sure?)
  */
 void printOnlyNullChar(){
-    PutString("\0");
+    char s[1];
+
+    s[0]= '\0';
+    PutString(s);
+    PutChar('\n');
 }
 
 /**
@@ -99,6 +108,7 @@ void printTooLongString(){
     s[10]= 't';     
  
     PutString(s);
+    PutChar('\n');
 }
 
 /**
@@ -117,6 +127,7 @@ void printStringWithSpace(){
     s[7]= 'k';    
  
     PutString(s);
+    PutChar('\n');
 }
 
 /**
@@ -135,6 +146,7 @@ void printStringWithSpace(){
     s[7]= 'k';    
  
     PutString(s);
+    PutChar('\n');
 }
 
 /**
@@ -154,19 +166,20 @@ void printStringWithSpace(){
     s[7]= 'x';    
  
     PutString(s);
+    PutChar('\n');
     */ //TODO fix it
   }
 
 int main()
 {
-    printNormalString();
-    printEmptyString();
-    printUnfinishedString();
-    printEndForcedString();
-    printOnlyNullChar();
-    printTooLongString();
+    //printNormalString();
+    //printEmptyString();
+    //printUnfinishedString();
+    //printEndForcedString();
+    //printOnlyNullChar();
+    //printTooLongString();
     printStringWithSpace();
-    printBreakLine();
+    //printBreakLine();
     //printEndOfLine();
        
     Halt();
