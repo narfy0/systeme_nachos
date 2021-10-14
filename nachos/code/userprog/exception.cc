@@ -26,7 +26,59 @@
 #include "syscall.h"
 
 #ifdef CHANGED
-#include "consoledriver.h" //TODO I think it's not necessary to add it, but error ocurrs if I dont add it SO FIX IT
+#include "consoledriver.h" 
+
+/**
+ * Copy a string, char by char, from MIPS world (using "from" address in args)
+ * to the kernel world (using "to" address in args). Use ReadMem() method.
+ * Stop when copy '\0' which have to be here in order to ensure system's security
+ * 
+ * Returns number of copied characters
+ **/
+int copyStringFromMachine(int from, char *to, unsigned size)
+{
+    int* value;
+
+    //loop and check '\0' OR size
+    int i;
+    int tmp;
+    for(i = 0; i < size && tmp != '\0'; i++){
+        //read string from Nachos memory, and put it into 'to'
+        machine->ReadMem(from + i, 1, &tmp);
+        to[i] = tmp; //sure that it's in [0; 255] so it's a char
+    }
+    
+    // if dont have '\0', add it (rewrite the last char)
+    if(tmp != '\0'){
+        to[i] = '\0'; 
+    }
+ 
+    //return postion of '\0' <=> number of char read or write '\0' include
+    return i+1;
+}
+
+void copyStringToMachine(int from, char *to, unsigned size){
+    int tmp, i;
+
+    //get the first char in the user buffer
+    tmp = to[0];
+
+    for(i = 0; i < size && tmp != '\0'; i++){
+        //read string from Nachos memory, and put it into 'to'
+        machine->WriteMem(from + i, 1, tmp);
+    }
+    /* other version for this loop
+    for(i = 0; i < size; i++){
+       machine->WriteMem(from + 1, sizeof(char), i);
+    }
+    */
+    
+    // if dont have '\0', add it (rewrite the last char)
+    if(tmp != '\0'){
+        to[i] = '\0'; 
+    }
+}
+
 #endif //CHANGED
 
 //----------------------------------------------------------------------
@@ -116,10 +168,10 @@ ExceptionHandler (ExceptionType which)
 			char stringAddr[MAX_STRING_SIZE];
 
 			//number of written char
-			int writtenChar = 6; //TODO change it
+			int writtenChar = MAX_STRING_SIZE;
 
 			//copy a String from MIPS memory to a kernel pointer
-			consoledriver->copyStringFromMachine(argAddr, stringAddr, writtenChar);
+			copyStringFromMachine(argAddr, stringAddr, writtenChar);
 
 			//call putstring() from consoleDriver
 			consoledriver->PutString(stringAddr);

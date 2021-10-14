@@ -62,7 +62,7 @@ int main()
     breakLine_test();
     //endOfLine_test();
 
-    //Halt();
+    Halt();
 }
 
 #endif //CHANGED
