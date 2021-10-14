@@ -142,8 +142,17 @@ ConsoleDriverTest (const char *in, const char *out)
     char ch;
     ConsoleDriver *test_consoledriver = new ConsoleDriver(in, out);
 
-    while ((ch = test_consoledriver->GetChar()) != EOF)
-    test_consoledriver->PutChar(ch);
+    while ((ch = test_consoledriver->GetChar()) != EOF){
+      if(ch != '\n'){
+        test_consoledriver->PutChar('<');
+        test_consoledriver->PutChar(ch);
+        test_consoledriver->PutChar('>');
+      } 
+      else{
+        test_consoledriver->PutChar(ch);
+      }
+    }
+ 
     fprintf(stderr, "EOF detected in ConsoleDriver!\n"); //remember that it's executed by Linux, not Nachos
 
     delete test_consoledriver;
