@@ -56,13 +56,15 @@ void endOfFile_test()
  */
 int main()
 {
-    print('a', 4);
+    //int n = 101;
+    //print('a', 4);
     normal_test();
     //empty_test();
     breakLine_test();
     //endOfLine_test();
 
     //Halt();
+    //return n;
 }
 
 #endif //CHANGED
