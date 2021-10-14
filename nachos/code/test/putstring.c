@@ -3,7 +3,7 @@
 #include "syscall.h"
 
 /**
- * Simple PutString usage example
+ * Simple  usage example
  */
 void print(char c[])
 {
