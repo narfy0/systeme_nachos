@@ -29,11 +29,13 @@ void normal_test()
 
 /**
  * To test if we try to put an empty file
+ * 
+ * This test is irrelevant because the empty char causes a compile error.
+ * But we still kept it to understand that we think about this case
  */
 void empty_test()
 {
     //PutChar('');
-    //TODO think about it (dont compile because it's null)
 }
 
 /**
@@ -46,11 +48,14 @@ void breakLine_test()
 
 /**
  * To test if we want to put a EOF char
+ * 
+ * This test is irrelevant because the EOF char causes a compile error.
+ * But include the stdio.h file don't work because compilator don't find it
+ * So we still kept it to understand that we think about this case.
  */
 void endOfFile_test()
 {
     //PutChar(EOF);
-    //TODO think about it
 }
 
 
@@ -59,15 +64,13 @@ void endOfFile_test()
  */
 int main()
 {
-    //int n = 101;
     //print('a', 4);
     normal_test();
     //empty_test();
-    breakLine_test();
+    //breakLine_test();
     //endOfLine_test();
 
     //Halt();
-    //return n;
 }
 
 #endif //CHANGED

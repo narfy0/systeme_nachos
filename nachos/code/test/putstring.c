@@ -25,7 +25,6 @@ void printNormalString(){
     s[5]= '\0';
 
     PutString(s);
-    PutChar('\n');
 }
 
 /**
@@ -34,7 +33,6 @@ void printNormalString(){
 void printEmptyString(){
     char s_1[5];
     PutString(s_1);
-    PutChar('\n');
 }
 
 /**
@@ -53,7 +51,6 @@ void printUnfinishedString(){
     s[5]= 't';
 
     PutString(s);
-    PutChar('\n');
 }
 
 /**
@@ -73,19 +70,17 @@ void printEndForcedString(){
     s[7]= 'x';    
  
     PutString(s);
-    PutChar('\n');
 }
 
 /**
  * Test if the string is only \0 
- * expectation : print nothing and return 1 (sure?)
+ * expectation : print nothing
  */
 void printOnlyNullChar(){
     char s[1];
 
     s[0]= '\0';
     PutString(s);
-    PutChar('\n');
 }
 
 /**
@@ -108,7 +103,6 @@ void printTooLongString(){
     s[10]= 't';     
  
     PutString(s);
-    PutChar('\n');
 }
 
 /**
@@ -127,7 +121,6 @@ void printStringWithSpace(){
     s[7]= 'k';    
  
     PutString(s);
-    PutChar('\n');
 }
 
 /**
@@ -146,11 +139,14 @@ void printStringWithSpace(){
     s[7]= 'k';    
  
     PutString(s);
-    PutChar('\n');
 }
 
 /**
- * test if the string contains EOF | ...
+ * test if the string contains EOF 
+ * 
+ * This test is irrelevant because the EOF char causes a compile error.
+ * But include the stdio.h file don't work because compilator don't find it
+ * So we still kept it to understand that we think about this case.
  */
   void printEndOfLine(){
     /*
@@ -166,8 +162,7 @@ void printStringWithSpace(){
     s[7]= 'x';    
  
     PutString(s);
-    PutChar('\n');
-    */ //TODO fix it
+    */
   }
 
 int main()
