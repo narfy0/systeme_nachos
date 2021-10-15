@@ -60,26 +60,15 @@ int copyStringFromMachine(int from, char *to, unsigned size)
     return i;
 }
 
-void copyStringToMachine(int from, char *to, unsigned size){
-    int tmp, i;
-
-    //get the first char in the user buffer
-    tmp = to[0];
-
-    for(i = 0; i < size && tmp != '\0'; i++){
-        //read string from Nachos memory, and put it into 'to'
-        machine->WriteMem(from + i, 1, tmp);
+void copyStringToMachine(char* from, int to, unsigned size){
+    int i = 0;
+    for(i = 0; i < size && from[i] != '\0'; i++){
+       machine->WriteMem(to + i, 1, from[i]);
     }
-    /* other version for this loop
-    for(i = 0; i < size; i++){
-       machine->WriteMem(from + 1, sizeof(char), i);
-    }
-    */
+
+	//force \0
+    machine->WriteMem(to + i, 1, '\0');
     
-    // if dont have '\0', add it (rewrite the last char)
-    if(tmp != '\0'){
-        to[i] = '\0'; 
-    }
 }
 
 #endif //CHANGED
@@ -212,8 +201,19 @@ ExceptionHandler (ExceptionType which)
 			//to print debug message when this exception is called
 			DEBUG('s', "GetString\n");
 
-			
+			//get the arg from register 4
+			int argAddr = machine->ReadRegister(4);
 
+			//kernel address where is the string
+			char stringAddr[MAX_STRING_SIZE];
+			consoledriver->GetString(stringAddr, MAX_STRING_SIZE);
+
+			//number of written char
+			int writtenChar = MAX_STRING_SIZE;
+
+			//copy a String from MIPS memory to a kernel pointer
+			copyStringToMachine(stringAddr, argAddr, writtenChar);
+			
 			break;
 		}	
 
