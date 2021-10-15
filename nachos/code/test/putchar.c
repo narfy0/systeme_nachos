@@ -4,6 +4,9 @@
 
 /**
  * Simple Putchar usage example
+ * 
+ * This method is suppose to print the character in the console 
+ * and the n next character after the first according to ASCII table
  */
 void print(char c, int n)
 {
