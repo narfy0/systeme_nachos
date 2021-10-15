@@ -40,21 +40,24 @@ int copyStringFromMachine(int from, char *to, unsigned size)
     int* value;
 
     //loop and check '\0' OR size
-    int i;
+    int i = 0;
     int tmp;
-    for(i = 0; i < size && tmp != '\0'; i++){
-        //read string from Nachos memory, and put it into 'to'
+
+	while(i < size && tmp != '\0'){
+		//read string from Nachos memory, and put it into 'to'
         machine->ReadMem(from + i, 1, &tmp);
         to[i] = tmp; //sure that it's in [0; 255] so it's a char
+
+		i++;
     }
     
     // if dont have '\0', add it (rewrite the last char)
     if(tmp != '\0'){
-        to[i] = '\0'; 
+        to[i-1] = '\0'; 
     }
  
     //return postion of '\0' <=> number of char read or write '\0' include
-    return i+1;
+    return i;
 }
 
 void copyStringToMachine(int from, char *to, unsigned size){
@@ -171,7 +174,11 @@ ExceptionHandler (ExceptionType which)
 			int writtenChar = MAX_STRING_SIZE;
 
 			//copy a String from MIPS memory to a kernel pointer
-			copyStringFromMachine(argAddr, stringAddr, writtenChar);
+			int returnCopy = copyStringFromMachine(argAddr, stringAddr, writtenChar);
+			if(returnCopy > writtenChar){
+				printf("Error : overflow memory while reading");
+		    	ASSERT(FALSE);	
+			}
 
 			//call putstring() from consoleDriver
 			consoledriver->PutString(stringAddr);

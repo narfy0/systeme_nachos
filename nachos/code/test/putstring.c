@@ -177,8 +177,8 @@ int main()
     //printUnfinishedString();
     //printEndForcedString();
     //printOnlyNullChar();
-    //printTooLongString();
-    printStringWithSpace();
+    printTooLongString();
+    //printStringWithSpace();
     //printBreakLine();
     //printEndOfLine();
        
