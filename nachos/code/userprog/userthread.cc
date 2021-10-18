@@ -10,6 +10,8 @@ typedef struct {
     int arg;
 } Schmurtz;
 
+Thread *newThread;
+
 static void StartUserThread(void *schmurtz){
     AddrSpace *space;
     Machine *machine;
@@ -40,12 +42,12 @@ int do_ThreadCreate(int f, int arg){
     schmurtz->f = f;
     schmurtz->arg = arg;
 
-    Thread *newThread = new Thread ("userThread");
+    newThread = new Thread ("userThread");
     newThread->Start(StartUserThread, schmurtz);
 }
 
 void do_ThreadExit(){
-    
+    newThread->Finish();
 }
 
 
