@@ -177,6 +177,27 @@ AddrSpace::InitRegisters ()
 	   numPages * PageSize - 16);
 }
 
+#ifdef CHANGED
+
+int
+AddrSpace::AllocateUserStack(){
+
+    int addr;
+
+    // Set the stack register to the end of the address space, where we
+    // allocated the stack; but subtract off a bit, to make sure we don't
+    // accidentally reference off the end!
+    machine->WriteRegister (StackReg, numPages * PageSize + 256 - 16);
+    DEBUG ('a', "Initializing stack register to 0x%x\n",
+	   numPages * PageSize + 256 - 16);
+
+    addr = machine->ReadRegister(StackReg);
+
+    return addr;
+}
+
+#endif //CHANGED
+
 //----------------------------------------------------------------------
 // AddrSpace::Dump
 //      Dump program layout as SVG
