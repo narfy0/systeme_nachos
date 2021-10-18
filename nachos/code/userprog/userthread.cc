@@ -1,7 +1,7 @@
 #ifdef CHANGED
 
 #include "userthread.h"
-#include "threads.h"
+#include "thread.h"
 #include "machine.h"
 #include "addrspace.h"
 
@@ -30,6 +30,8 @@ static void StartUserThread(void *schmurtz){
 
     int beginAddrStack = space->AllocateUserStack();
     DEBUG('x', "Debug : StartUserThread, beginAddrStack %d\n", beginAddrStack);
+
+    machine->Run();
 }
 
 int do_ThreadCreate(int f, int arg){
@@ -38,8 +40,8 @@ int do_ThreadCreate(int f, int arg){
     schmurtz->f = f;
     schmurtz->arg = arg;
 
-    //Thread *newThread;
-    //newThread->Start(StartUserThread, schmurtz);
+    Thread *newThread = new Thread ("userThread");
+    newThread->Start(StartUserThread, schmurtz);
 }
 
 void do_ThreadExit(){
