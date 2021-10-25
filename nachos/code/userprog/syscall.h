@@ -161,11 +161,12 @@ void GetString(char *s, int n);
 
 /*To create a user thread
 */
-int do_ThreadCreate(int f, int arg);
+//int do_ThreadCreate(int f, int arg);
+int ThreadCreate(void f(void *arg), void* arg);
 
 /*To kill a thread
 */
-void do_ThreadExit();
+void ThreadExit(void);
 
 #endif // CHANGED
 
