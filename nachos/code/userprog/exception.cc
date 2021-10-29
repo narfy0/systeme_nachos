@@ -173,7 +173,7 @@ ExceptionHandler (ExceptionType which)
 
 			break;
 		}
-
+		
 		#endif // CHANGED
 
 		default:

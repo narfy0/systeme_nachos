@@ -4,6 +4,7 @@
 #include "thread.h"
 #include "machine.h"
 #include "addrspace.h"
+#include "system.h"
 
 typedef struct {
     int f;
@@ -15,10 +16,8 @@ Schmurtz *schmurtz;
 
 static void StartUserThread(void *schmurtz){
     DEBUG ('x', "StartUserThread begin\n");
-    AddrSpace *space;
-    Machine *machine;
+    AddrSpace *userThread_space;
     
-
     int i;
     for (i = 0; i < NumTotalRegs; i++)
 	machine->WriteRegister (i, 0);
@@ -32,8 +31,7 @@ static void StartUserThread(void *schmurtz){
     // of branch delay possibility
     machine->WriteRegister (NextPCReg, machine->ReadRegister(PCReg) + 4);
 
-
-    int beginAddrStack = space->AllocateUserStack();
+    int beginAddrStack = currentThread->space->AllocateUserStack();
     DEBUG('x', "Debug : StartUserThread, beginAddrStack %x\n", beginAddrStack);
 
     machine->Run();
@@ -48,6 +46,7 @@ int do_ThreadCreate(int f, int arg){
     schmurtz->arg = arg;
 
     newThread = new Thread ("userThread");
+    newThread->space = currentThread->space; //here, before newThread->Start, currentThread is the parent thread
     newThread->Start(StartUserThread, schmurtz);
 
     return 0;
