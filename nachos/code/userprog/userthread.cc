@@ -16,8 +16,7 @@ Schmurtz *schmurtz;
 
 static void StartUserThread(void *schmurtz){
     DEBUG ('x', "StartUserThread begin\n");
-    AddrSpace *userThread_space;
-    
+        
     int i;
     for (i = 0; i < NumTotalRegs; i++)
 	machine->WriteRegister (i, 0);
