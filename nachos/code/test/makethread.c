@@ -5,6 +5,7 @@
 void printChar()
 {
     PutChar('£');
+    ThreadExit();
 }
 
 int 
@@ -12,9 +13,7 @@ main()
 {
     ThreadCreate(printChar, 'a');
 
-    while(1){
-        
-    }
+    while(1){}
 
     Halt();
 }

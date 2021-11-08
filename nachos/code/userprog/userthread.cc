@@ -11,18 +11,18 @@ typedef struct {
     int arg;
 } Schmurtz;
 
-Thread *newThread;
-Schmurtz *schmurtz;
+
 
 static void StartUserThread(void *schmurtz){
     DEBUG ('x', "StartUserThread begin\n");
-        
+
     int i;
     for (i = 0; i < NumTotalRegs; i++)
 	machine->WriteRegister (i, 0);
 
     // Initial program counter -- must be location of "Start"
     Schmurtz tmp = *(Schmurtz *) schmurtz;
+    free(schmurtz);
     DEBUG('x', "Debug : StartUserThread, Schurmtz.f val = %d\n", tmp.f);
     machine->WriteRegister (PCReg, tmp.f);
 
@@ -39,6 +39,8 @@ static void StartUserThread(void *schmurtz){
 int do_ThreadCreate(int f, int arg){
     DEBUG('x', "Debug : do_ThreadCreate, f = %d\n", f);
     
+    Thread *newThread;
+    Schmurtz *schmurtz;
     
     schmurtz = (Schmurtz *) malloc(sizeof(schmurtz));
     schmurtz->f = f;
@@ -47,13 +49,14 @@ int do_ThreadCreate(int f, int arg){
     newThread = new Thread ("userThread");
     newThread->space = currentThread->space; //here, before newThread->Start, currentThread is the parent thread
     newThread->Start(StartUserThread, schmurtz);
-
+    do_ThreadExit();
+    
     return 0;
 }
 
 void do_ThreadExit(){
-    newThread->Finish();
-    free(schmurtz);
+    DEBUG('x', "Debug : do_ThreadExit begin \n");
+    currentThread->Finish();
 }
 
 
