@@ -12,8 +12,8 @@ int
 main()
 {
     ThreadCreate(printChar, 'a');
-
-    //ThreadCreate(printChar, 'b');
+    ThreadCreate(printChar, 'b');
+    
     PutChar('&');
     
     while(1){}

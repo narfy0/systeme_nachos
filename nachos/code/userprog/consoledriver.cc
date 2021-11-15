@@ -8,6 +8,10 @@
 static Semaphore *readAvail;
 static Semaphore *writeDone;
 
+//Semaphore for threads
+static Semaphore *thread_putcharSemaphore;
+static Semaphore *thread_getcharSemaphore;
+
 static void ReadAvailHandler(void *arg) { (void) arg; readAvail->V(); }
 static void WriteDoneHandler(void *arg) { (void) arg; writeDone->V(); }
 
@@ -15,6 +19,9 @@ ConsoleDriver::ConsoleDriver(const char *in, const char *out)
 {
     readAvail = new Semaphore("read await", 0);
     writeDone = new Semaphore("write done", 0);
+
+    thread_putcharSemaphore = new Semaphore("thread putchar mutex", 1);
+    thread_getcharSemaphore = new Semaphore("thread getchar mutex", 1);
 
     // console = ... 
     console = new Console (in, out, ReadAvailHandler, WriteDoneHandler, NULL);
@@ -29,17 +36,23 @@ ConsoleDriver::~ConsoleDriver()
 
 void ConsoleDriver::PutChar(int ch)
 { 
-    
+    thread_putcharSemaphore->P();
+
     console->TX(ch);
 	writeDone->P ();	// wait for write to finish
+
+    thread_putcharSemaphore->V();
   
 }
 
 int ConsoleDriver::GetChar()
 {
+    thread_getcharSemaphore->P();
   
     readAvail->P ();	// wait for character to arrive
 	return console->RX ();
+
+    thread_getcharSemaphore->V();
 
 }
 
