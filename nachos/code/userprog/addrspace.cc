@@ -22,12 +22,26 @@
 #include "syscall.h"
 #include "new"
 
+#ifdef CHANGED
+#include "synch.h"
+#endif //CHANGED
+
 //----------------------------------------------------------------------
 // SwapHeader
 //      Do little endian to big endian conversion on the bytes in the 
 //      object file header, in case the file was generated on a little
 //      endian machine, and we're now running on a big endian machine.
 //----------------------------------------------------------------------
+
+#ifdef CHANGED
+
+//variable to count user thread
+int threadCount = 0;
+
+// mutex to controll the incrementation and decrementation of running threads
+static Semaphore *mutex_countingThread;
+
+#endif //CHANGED
 
 static void
 SwapHeader (NoffHeader * noffH)
@@ -129,6 +143,13 @@ AddrSpace::AddrSpace (OpenFile * executable)
     pageTable[0].valid = FALSE;			// Catch NULL dereference
 
     AddrSpaceList.Append(this);
+
+
+    #ifdef CHANGED
+
+    mutex_countingThread = new Semaphore("thread counter mutex", 1);
+
+    #endif //CHANGED
 }
 
 //----------------------------------------------------------------------
@@ -184,6 +205,15 @@ AddrSpace::AllocateUserStack(){
 
     int addr;
 
+    mutex_countingThread->P();
+
+    // increment the counter of created threads
+    threadCount++;
+
+    mutex_countingThread->V();
+
+    DEBUG('x', "Incrementation of running threads = %d \n", threadCount);
+
     // Set the stack register to the end of the address space, where we
     // allocated the stack; but subtract off a bit, to make sure we don't
     // accidentally reference off the end!
@@ -194,6 +224,21 @@ AddrSpace::AllocateUserStack(){
     addr = machine->ReadRegister(StackReg);
 
     return addr;
+}
+
+void 
+AddrSpace::FinishUserThreads(){
+    DEBUG('x', "Debug : finish user thread begin (count = %d)\n", threadCount);
+    //if I am the last, I stop nachos process
+    if(threadCount == 0){
+        DEBUG('x', "Debug : do_threadExit powerdown (count = %d)\n", threadCount);
+        //interrupt->Halt();
+        interrupt->Powerdown ();
+    }
+
+    mutex_countingThread->P();
+    threadCount--;
+    mutex_countingThread->V();
 }
 
 #endif //CHANGED

@@ -21,8 +21,13 @@
 
 #define UserStacksAreaSize		1024	// increase this as necessary!
 
+#ifdef CHANGED
+class Semaphore;
+#endif //CHANGED
+
 class AddrSpace:public dontcopythis
 {
+
   public:
     AddrSpace (OpenFile * executable);	// Create an address space,
     // initializing it with the program
@@ -34,6 +39,8 @@ class AddrSpace:public dontcopythis
 
     #ifdef CHANGED
     int AllocateUserStack();
+
+    void FinishUserThreads();
     #endif //CHANGED
 
     void SaveState ();		// Save/restore address space-specific
@@ -51,6 +58,8 @@ class AddrSpace:public dontcopythis
     TranslationEntry * pageTable; // Page table
     unsigned int numPages;	// Number of pages in the page table
 };
+
+
 
 extern List AddrspaceList;
 

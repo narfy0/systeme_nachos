@@ -12,10 +12,6 @@ typedef struct {
     int arg;
 } Schmurtz;
 
-//variable to count user thread
-int threadCount = 0;
-//Semaphore mutex_countingThread(1);
-
 static void StartUserThread(void *schmurtz){
     DEBUG ('x', "StartUserThread begin\n");
 
@@ -49,10 +45,7 @@ int do_ThreadCreate(int f, int arg){
     schmurtz->f = f;
     schmurtz->arg = arg;
 
-    newThread = new Thread ("userThread");
-
-    mutex_countingThread
-    threadCount++;
+    newThread = new Thread ("userThread");  
     
     
     newThread->space = currentThread->space; //here, before newThread->Start, currentThread is the parent thread
@@ -63,17 +56,19 @@ int do_ThreadCreate(int f, int arg){
 }
 
 void do_ThreadExit(){
-    DEBUG('x', "Debug : do_ThreadExit begin (threadCount = %d)\n", threadCount);
+    DEBUG('x', "Debug : do_ThreadExit begin \n");
+    currentThread->space->FinishUserThreads();
     currentThread->Finish();
+    
 
     //if I am the last, I stop nachos process
-    if(threadCount == 0){
+    /*if(threadCount == 0){
         DEBUG('x', "Debug : do_threadExit powerdown (count = %d)", threadCount);
         //interrupt->Halt();
         interrupt->Powerdown ();
     }
 
-    threadCount--;
+    threadCount--;*/
     
 }
 
