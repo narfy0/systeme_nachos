@@ -174,6 +174,13 @@ ExceptionHandler (ExceptionType which)
 			break;
 		}
 		
+		case SC_Exit:
+		{
+			DEBUG ('s', "SC_Exit : Shutdown, initiated by user program.\n");
+		    interrupt->Powerdown ();
+		    break;
+		}
+
 		#endif // CHANGED
 
 		default:

@@ -12,11 +12,12 @@ int
 main()
 {
     ThreadCreate(printChar, 'a');
-   // ThreadCreate(printChar, 'b');
+    ThreadCreate(printChar, 'b');
 
     PutChar('&');
     
     ThreadExit();
+    
     //while(1){}
 
 }

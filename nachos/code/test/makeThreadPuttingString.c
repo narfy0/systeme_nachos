@@ -37,7 +37,6 @@ main()
     
     while(1){}
 
-    Halt();
 }
 
 #endif //CHANGED
