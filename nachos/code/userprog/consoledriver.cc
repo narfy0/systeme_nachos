@@ -15,6 +15,7 @@ ConsoleDriver::ConsoleDriver(const char *in, const char *out)
 {
     readAvail = new Semaphore("read await", 0);
     writeDone = new Semaphore("write done", 0);
+
     // console = ... 
     console = new Console (in, out, ReadAvailHandler, WriteDoneHandler, NULL);
 }
@@ -28,14 +29,18 @@ ConsoleDriver::~ConsoleDriver()
 
 void ConsoleDriver::PutChar(int ch)
 { 
+    
     console->TX(ch);
 	writeDone->P ();	// wait for write to finish
+  
 }
 
 int ConsoleDriver::GetChar()
 {
+  
     readAvail->P ();	// wait for character to arrive
 	return console->RX ();
+
 }
 
 void ConsoleDriver::PutString(const char s[])

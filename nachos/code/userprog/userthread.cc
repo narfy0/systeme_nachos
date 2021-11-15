@@ -49,7 +49,7 @@ int do_ThreadCreate(int f, int arg){
     newThread = new Thread ("userThread");
     newThread->space = currentThread->space; //here, before newThread->Start, currentThread is the parent thread
     newThread->Start(StartUserThread, schmurtz);
-    do_ThreadExit();
+    //do_ThreadExit();
     
     return 0;
 }
