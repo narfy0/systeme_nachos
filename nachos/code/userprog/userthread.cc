@@ -30,7 +30,7 @@ static void StartUserThread(void *schmurtz){
     machine->WriteRegister (NextPCReg, machine->ReadRegister(PCReg) + 4);
 
     int beginAddrStack = currentThread->space->AllocateUserStack();
-    DEBUG('x', "Debug : StartUserThread, beginAddrStack %x\n", beginAddrStack);
+    DEBUG('x', "Debug : StartUserThread, beginAddrStack %d\n", beginAddrStack);
 
     machine->Run();
 }

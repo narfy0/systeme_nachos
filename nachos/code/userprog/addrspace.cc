@@ -206,31 +206,24 @@ AddrSpace::AllocateUserStack(){
     int addr;
 
     mutex_countingThread->P();
-
+    
     // increment the counter of created threads
     threadCount++;
     DEBUG('x', "Incrementation of running threads = %d \n", threadCount);
+    
 
-    mutex_countingThread->V();
-
-    int start_stack_new_thread = (numPages * PageSize) - (256 * threadCount) - 256 - 16;
-    int limit_stack = (numPages * PageSize) - 1024;
+    int start_stack_new_thread = (numPages * PageSize) - (256 * threadCount) - 16; //je ne suis plus si sûr qu'on doit laisser le moins 16
+    int limit_stack = (numPages * PageSize) - 1024 - 16;
     if(start_stack_new_thread < limit_stack){
         DEBUG('x', "Debug AllocateUserStack going to far on the CODE (thread = %d) \n", threadCount);
-
-        return NULL;
+        return start_stack_new_thread;
     }
-
-    // Set the stack register to the end of the address space, where we
-    // allocated the stack; but subtract off a bit, to make sure we don't
-    // accidentally reference off the end!
-    
+    // Set location of our new userThread stack start
     machine->WriteRegister (StackReg, (numPages * PageSize) - (256 * threadCount) - 16);
-
-
-    DEBUG ('a', "Initializing stack register to 0x%x\n", numPages * PageSize + 256 - 16);
-
+    DEBUG ('a', "Initializing stack register to 0x%x\n", numPages * PageSize - (256 * threadCount) - 16);
     addr = machine->ReadRegister(StackReg);
+    
+    mutex_countingThread->V();
 
     return addr;
 }
