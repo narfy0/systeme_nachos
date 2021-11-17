@@ -57,6 +57,11 @@ class AddrSpace:public dontcopythis
 
     TranslationEntry * pageTable; // Page table
     unsigned int numPages;	// Number of pages in the page table
+
+    #ifdef CHANGED
+    // current addrspaces's index in free section in stack
+    int index_map;
+    #endif //CHANGED
 };
 
 

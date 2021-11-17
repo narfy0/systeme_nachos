@@ -24,6 +24,7 @@
 
 #ifdef CHANGED
 #include "synch.h"
+#include "bitmap.h"
 #endif //CHANGED
 
 //----------------------------------------------------------------------
@@ -35,11 +36,12 @@
 
 #ifdef CHANGED
 
-//variable to count user thread
+// variable to count user thread
 int threadCount = 0;
-
 // mutex to controll the incrementation and decrementation of running threads
-static Semaphore *mutex_countingThread;
+static Semaphore *mutex_countingThread, *waiting_stack_map;
+// a bitmap object to count the free section in stack
+BitMap *stack_map = new BitMap(5); // 5 = number of userThread creatable and the parent thread
 
 #endif //CHANGED
 
@@ -148,7 +150,12 @@ AddrSpace::AddrSpace (OpenFile * executable)
     #ifdef CHANGED
 
     mutex_countingThread = new Semaphore("thread counter mutex", 1);
-
+    waiting_stack_map = new Semaphore("stack map waiter", 4);
+    
+    // mark the section of the parent thread used
+    stack_map->Mark(0);
+    index_map = 0;
+    
     #endif //CHANGED
 }
 
@@ -206,24 +213,30 @@ AddrSpace::AllocateUserStack(){
     int addr;
 
     mutex_countingThread->P();
-    
     // increment the counter of created threads
     threadCount++;
-    DEBUG('x', "Incrementation of running threads = %d \n", threadCount);
-    
+    DEBUG('x', "Incrementation of threads = %d \n", threadCount);
+    mutex_countingThread->V();
 
-    int start_stack_new_thread = (numPages * PageSize) - (256 * threadCount) - 16; //je ne suis plus si sûr qu'on doit laisser le moins 16
+    //waiting_stack_map->P();
+    /*int start_stack_new_thread = (numPages * PageSize) - (256 * threadCount) - 16; //je ne suis plus si sûr qu'on doit laisser le moins 16
     int limit_stack = (numPages * PageSize) - 1024 - 16;
     if(start_stack_new_thread < limit_stack){
         DEBUG('x', "Debug AllocateUserStack going to far on the CODE (thread = %d) \n", threadCount);
         return start_stack_new_thread;
-    }
-    // Set location of our new userThread stack start
-    machine->WriteRegister (StackReg, (numPages * PageSize) - (256 * threadCount) - 16);
-    DEBUG ('a', "Initializing stack register to 0x%x\n", numPages * PageSize - (256 * threadCount) - 16);
-    addr = machine->ReadRegister(StackReg);
+    }*/
+    DEBUG('x', "Debug number of section free %d for the previous thread %d \n", stack_map->NumClear(), index_map);
+    waiting_stack_map->P();
+    /*while(stack_map->NumClear() == 0){
+        //DEBUG('x', "Debug waiting in thread %d \n", index_map);
+    }*/
+    index_map = stack_map->Find();
+    DEBUG('x', "DEBUG Allocate a new stack with section %d\n", index_map);
     
-    mutex_countingThread->V();
+    // Set location of our new userThread stack start
+    machine->WriteRegister (StackReg, (numPages * PageSize) - (256 * index_map) - 16);
+    DEBUG ('a', "Initializing stack register to 0x%x\n", numPages * PageSize - (256 * index_map) - 16);
+    addr = machine->ReadRegister(StackReg);
 
     return addr;
 }
@@ -239,8 +252,11 @@ AddrSpace::FinishUserThreads(){
     }
 
     mutex_countingThread->P();
+    stack_map->Clear(index_map);
+    DEBUG('x', "DEBUG BitMap.Clear free the section %d\n", index_map);
     threadCount--;
     mutex_countingThread->V();
+    waiting_stack_map->V();
 }   
 
 #endif //CHANGED

@@ -34,8 +34,9 @@ main()
    
 
     PutString(s1);
+    ThreadExit();
     
-    while(1){}
+    //while(1){}
 
 }
 
