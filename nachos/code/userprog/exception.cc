@@ -216,6 +216,7 @@ ExceptionHandler (ExceptionType which)
 			//to print debug message when this exception is called
 			DEBUG('s', "ThreadCreate\n");
 
+			//to get the arg from syscall ThreadCreate()
 			int f = machine->ReadRegister(4);
 			int arg = machine->ReadRegister(5);
 
