@@ -39,9 +39,11 @@
 // variable to count user thread
 int threadCount = 0;
 // mutex to controll the incrementation and decrementation of running threads
-static Semaphore *mutex_countingThread, *waiting_stack_map;
+static Semaphore *mutex_countingThread;
+// semaphore to wait stack allocation if already too many user threads allocated
+static Semaphore *waiting_stack_map;
 // a bitmap object to count the free section in stack
-BitMap *stack_map = new BitMap(4); // 4 = number of userThread creatable and the parent thread
+BitMap *stack_map = new BitMap(4); // 4 = number of user thread creatable and the parent thread
 
 #endif //CHANGED
 
@@ -149,6 +151,7 @@ AddrSpace::AddrSpace (OpenFile * executable)
 
     #ifdef CHANGED
 
+    // To initialise semaphores
     mutex_countingThread = new Semaphore("thread counter mutex", 1);
     waiting_stack_map = new Semaphore("stack map waiter", 3);
     
@@ -207,56 +210,69 @@ AddrSpace::InitRegisters ()
 
 #ifdef CHANGED
 
+/*
+ To allocate the user stack in the address space 
+ and check to wait for free stack section if too many user thread are already allocated
+*/
 int
 AddrSpace::AllocateUserStack(){
 
     int addr;
 
-    mutex_countingThread->P();
+    mutex_countingThread->P(); // to protect thread counting
     // increment the counter of created threads
     threadCount++;
     DEBUG('x', "Incrementation of threads = %d \n", threadCount);
     mutex_countingThread->V();
 
-    //waiting_stack_map->P();
-    /*int start_stack_new_thread = (numPages * PageSize) - (256 * threadCount) - 16; //je ne suis plus si sûr qu'on doit laisser le moins 16
-    int limit_stack = (numPages * PageSize) - 1024 - 16;
-    if(start_stack_new_thread < limit_stack){
-        DEBUG('x', "Debug AllocateUserStack going to far on the CODE (thread = %d) \n", threadCount);
-        return start_stack_new_thread;
-    }*/
-    DEBUG('x', "Debug number of section free %d for the previous thread %d \n", stack_map->NumClear(), index_map);
+    /* // Old version of stack section allocation (replaced in action II.4)
     waiting_stack_map->P();
-    /*while(stack_map->NumClear() == 0){
-        //DEBUG('x', "Debug waiting in thread %d \n", index_map);
+    int start_stack_new_thread = (numPages * PageSize) - (256 * threadCount) - 16;
+    int limit_stack = (numPages * PageSize) - 1024 - 16;
+    if(start_stack_new_thread < limit_stack){ // check if a stack section still can be allocated
+        DEBUG('x', "Debug AllocateUserStack going to far on the CODE (thread = %d) \n", threadCount);
+        return -1; // if a user thread can't be allocated
     }*/
+
+    DEBUG('x', "Debug number of section free %d for the previous thread index %d \n", stack_map->NumClear(), index_map);
+    waiting_stack_map->P();
+
+    // to get the index of the stack free section (normally it exist thanks to semaphore just before which wait for a section to be freed)
     index_map = stack_map->Find();
     DEBUG('x', "DEBUG Allocate a new stack with section %d\n", index_map);
     
-    // Set location of our new userThread stack start
+    // Set location of our new user thread's stack start
     machine->WriteRegister (StackReg, (numPages * PageSize) - (256 * index_map) - 16);
     DEBUG ('a', "Initializing stack register to 0x%x\n", numPages * PageSize - (256 * index_map) - 16);
     addr = machine->ReadRegister(StackReg);
 
+    // return the address of the beginning of the user thread's stack
     return addr;
 }
 
+/*
+ To finish a user thread, check if it is the last to do it and free stack section in the Bitmap
+*/
 void 
 AddrSpace::FinishUserThreads(){
     DEBUG('x', "Debug : finish user thread begin (count = %d)\n", threadCount);
+
     //if I am the last, I stop nachos process
     if(threadCount == 0){
         DEBUG('x', "Debug : do_threadExit powerdown (count = %d)\n", threadCount);
-        //interrupt->Halt();
+        
         interrupt->Powerdown ();
     }
 
-    mutex_countingThread->P();
+    mutex_countingThread->P(); // To protect thread counting and bitmap clearing from other thread actions
+
     stack_map->Clear(index_map);
     DEBUG('x', "DEBUG BitMap.Clear free the section %d\n", index_map);
     threadCount--;
+
     mutex_countingThread->V();
-    waiting_stack_map->V();
+
+    waiting_stack_map->V(); // to notify that a thread is finnished ( and awake a new one if it is waiting to be allocated )
 }   
 
 #endif //CHANGED

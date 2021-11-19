@@ -70,18 +70,6 @@ void do_ThreadExit(){
     currentThread->space->FinishUserThreads();
     currentThread->Finish();
     
-
-    /* // Old version to count threads and stop the program (action II.3)
-    //if I am the last, I stop nachos process
-    if(threadCount == 0){
-        DEBUG('x', "Debug : do_threadExit powerdown (count = %d)", threadCount);
-        //interrupt->Halt();
-        interrupt->Powerdown ();
-    }
-
-    threadCount--;
-    */
-    
 }
 
 #endif // CHANGED
