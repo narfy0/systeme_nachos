@@ -4,10 +4,7 @@
 
 void printChar()
 {
-    volatile int i;
-    for(i = 0; i < 5; i++){
-        PutChar('a' + i);
-    }
+    PutChar('a');
     PutChar('|');
     ThreadExit();
 }
@@ -18,8 +15,12 @@ main()
     ThreadCreate(printChar, 'a');
     ThreadCreate(printChar, 'b');
     ThreadCreate(printChar, 'c');
-    //ThreadCreate(printChar, 'd');
-    //ThreadCreate(printChar, 'e');
+    ThreadCreate(printChar, 'd');
+    ThreadCreate(printChar, 'e');
+    ThreadCreate(printChar, 'f');
+    ThreadCreate(printChar, 'g');
+    ThreadCreate(printChar, 'h');
+    ThreadCreate(printChar, 'i');
 
     PutChar('&');
     

@@ -48,12 +48,12 @@ void ConsoleDriver::PutChar(int ch)
 
 int ConsoleDriver::GetChar()
 {
-    thread_charSemaphore->P();
+    //thread_charSemaphore->P();
   
     readAvail->P ();	// wait for character to arrive
 	return console->RX ();
 
-    thread_charSemaphore->V();
+    //thread_charSemaphore->V();
 
 }
 
