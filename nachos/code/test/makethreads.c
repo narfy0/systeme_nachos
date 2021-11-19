@@ -2,16 +2,16 @@
 
 #include "syscall.h"
 
-void printChar()
+void printChar(char arg)
 {
-    PutChar('£');
+    PutChar(arg);
     ThreadExit();
 }
 
 int 
 main()
 {
-    ThreadCreate(printChar, 'a');
+    ThreadCreate(printChar, '£');
     while(1){}
 
 }

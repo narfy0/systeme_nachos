@@ -29,6 +29,8 @@ static void StartUserThread(void *schmurtz){
     // of branch delay possibility
     machine->WriteRegister (NextPCReg, machine->ReadRegister(PCReg) + 4);
 
+    machine->WriteRegister(4, tmp.arg);
+
     int beginAddrStack = currentThread->space->AllocateUserStack();
     DEBUG('x', "Debug : StartUserThread, beginAddrStack %d\n", beginAddrStack);
 
