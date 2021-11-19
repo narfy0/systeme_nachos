@@ -15,8 +15,6 @@ main()
 
     PutChar('&');
     ThreadExit();
-    //while(1){}
-
 }
 
 #endif //CHANGED

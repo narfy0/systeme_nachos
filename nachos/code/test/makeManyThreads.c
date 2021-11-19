@@ -2,9 +2,9 @@
 
 #include "syscall.h"
 
-void printChar()
+void printChar(char arg)
 {
-    PutChar('a');
+    PutChar(arg);
     PutChar('|');
     ThreadExit();
 }
@@ -25,8 +25,6 @@ main()
     PutChar('&');
     
     ThreadExit();
-    //while(1){}
-
 }
 
 #endif //CHANGED
