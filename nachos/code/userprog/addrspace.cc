@@ -41,7 +41,7 @@ int threadCount = 0;
 // mutex to controll the incrementation and decrementation of running threads
 static Semaphore *mutex_countingThread, *waiting_stack_map;
 // a bitmap object to count the free section in stack
-BitMap *stack_map = new BitMap(5); // 5 = number of userThread creatable and the parent thread
+BitMap *stack_map = new BitMap(4); // 4 = number of userThread creatable and the parent thread
 
 #endif //CHANGED
 
@@ -150,7 +150,7 @@ AddrSpace::AddrSpace (OpenFile * executable)
     #ifdef CHANGED
 
     mutex_countingThread = new Semaphore("thread counter mutex", 1);
-    waiting_stack_map = new Semaphore("stack map waiter", 4);
+    waiting_stack_map = new Semaphore("stack map waiter", 3);
     
     // mark the section of the parent thread used
     stack_map->Mark(0);
