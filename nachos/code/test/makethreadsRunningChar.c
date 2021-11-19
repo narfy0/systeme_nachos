@@ -8,12 +8,28 @@ void printChar()
     ThreadExit();
 }
 
+void printGetChar()
+{
+    int result = GetChar();
+    PutChar(result);
+    ThreadExit();
+}
+
 int 
 main()
 {
-    ThreadCreate(printChar, 'a');
-    PutChar('&'); 
-    ThreadExit();
+    //ThreadCreate(printChar, 'a');
+    //PutChar('&'); 
+    
+    //ThreadCreate(printChar, 'a');
+    //GetChar();
+    
+    ThreadCreate(printGetChar, 'a');
+    PutChar('&');
+    
+    //ThreadCreate(printGetChar, 'a');
+    //GetChar();
+
     while(1){}
 
 }

@@ -48,13 +48,11 @@ void ConsoleDriver::PutChar(int ch)
 
 int ConsoleDriver::GetChar()
 {
-    //thread_charSemaphore->P();
+    thread_charSemaphore->P();
   
     readAvail->P ();	// wait for character to arrive
+    thread_charSemaphore->V();
 	return console->RX ();
-
-    //thread_charSemaphore->V();
-
 }
 
 void ConsoleDriver::PutString(const char s[])
