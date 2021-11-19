@@ -26,9 +26,52 @@
 #include "syscall.h"
 
 #ifdef CHANGED
-#include "consoledriver.h" //TODO I think it's not necessary to add it, but error ocurrs if I dont add it SO FIX IT
+#include "consoledriver.h"
+#include "userthread.h" 
 
-#include "userthread.h"
+/**
+ * Copy a string, char by char, from MIPS world (using "from" address in args)
+ * to the kernel world (using "to" address in args). Use ReadMem() method.
+ * Stop when copy '\0' which have to be here in order to ensure system's security
+ * 
+ * Returns number of copied characters
+ **/
+int copyStringFromMachine(int from, char *to, unsigned size)
+{
+    int* value;
+
+    //loop and check '\0' OR size
+    int i = 0;
+    int tmp;
+
+	while(i < size && tmp != '\0'){
+		//read string from Nachos memory, and put it into 'to'
+        machine->ReadMem(from + i, 1, &tmp);
+        to[i] = tmp; //sure that it's in [0; 255] so it's a char
+
+		i++;
+    }
+    
+    // if dont have '\0', add it (rewrite the last char)
+    if(tmp != '\0'){
+        to[i-1] = '\0'; 
+    }
+ 
+    //return postion of '\0' <=> number of char read or write '\0' include
+    return i;
+}
+
+void copyStringToMachine(char* from, int to, unsigned size){
+    int i = 0;
+    for(i = 0; i < size && from[i] != '\0'; i++){
+       machine->WriteMem(to + i, 1, from[i]);
+    }
+
+	//force \0
+    machine->WriteMem(to + i, 1, '\0');
+    
+}
+
 #endif //CHANGED
 
 //----------------------------------------------------------------------
@@ -118,10 +161,14 @@ ExceptionHandler (ExceptionType which)
 			char stringAddr[MAX_STRING_SIZE];
 
 			//number of written char
-			int writtenChar = 6; //TODO change it
+			int writtenChar = MAX_STRING_SIZE;
 
 			//copy a String from MIPS memory to a kernel pointer
-			consoledriver->copyStringFromMachine(argAddr, stringAddr, writtenChar);
+			int returnCopy = copyStringFromMachine(argAddr, stringAddr, writtenChar);
+			if(returnCopy > writtenChar){
+				printf("Error : overflow memory while reading");
+		    	ASSERT(FALSE);	
+			}
 
 			//call putstring() from consoleDriver
 			consoledriver->PutString(stringAddr);
@@ -148,6 +195,19 @@ ExceptionHandler (ExceptionType which)
 			//to print debug message when this exception is called
 			DEBUG('s', "GetString\n");
 
+			//get the arg from register 4
+			int argAddr = machine->ReadRegister(4);
+
+			//kernel address where is the string
+			char stringAddr[MAX_STRING_SIZE];
+			consoledriver->GetString(stringAddr, MAX_STRING_SIZE);
+
+			//number of written char
+			int writtenChar = MAX_STRING_SIZE;
+
+			//copy a String from MIPS memory to a kernel pointer
+			copyStringToMachine(stringAddr, argAddr, writtenChar);
+			
 			break;
 		}
 
@@ -179,7 +239,7 @@ ExceptionHandler (ExceptionType which)
 			DEBUG ('s', "SC_Exit : Shutdown, initiated by user program.\n");
 		    interrupt->Powerdown ();
 		    break;
-		}
+		}	
 
 		#endif // CHANGED
 

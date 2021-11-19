@@ -18,8 +18,10 @@
 
 void testGet()
 {
-    int res = GetChar();
-    PutChar(res);
+    char* s;
+    int size = 10;
+    GetString(s, size);
+    PutString(s);
 
 }
 
