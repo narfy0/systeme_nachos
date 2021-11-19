@@ -6,9 +6,9 @@ void printChar()
 {
     volatile int i;
     for(i = 0; i < 5; i++){
-        PutChar('a' + i);
+        PutChar('a' + i); //we add i to 'a' value to know what is the "loop nulber" corresponding to the printed char
     }
-    PutChar('|');
+    PutChar('|'); // to notice the end of the thread print execution
     ThreadExit();
 }
 

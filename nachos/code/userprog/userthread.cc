@@ -29,6 +29,7 @@ static void StartUserThread(void *schmurtz){
     // of branch delay possibility
     machine->WriteRegister (NextPCReg, machine->ReadRegister(PCReg) + 4);
 
+    // To give the argument of the program
     machine->WriteRegister(4, tmp.arg);
 
     int beginAddrStack = currentThread->space->AllocateUserStack();

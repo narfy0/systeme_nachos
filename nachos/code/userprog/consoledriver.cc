@@ -24,7 +24,6 @@ ConsoleDriver::ConsoleDriver(const char *in, const char *out)
     thread_charSemaphore = new Semaphore("thread char method mutex", 1);
     thread_stringSemaphore = new Semaphore("thread string method mutex", 1);
 
-    // console = ... 
     console = new Console (in, out, ReadAvailHandler, WriteDoneHandler, NULL);
 }
 
@@ -37,7 +36,7 @@ ConsoleDriver::~ConsoleDriver()
 
 void ConsoleDriver::PutChar(int ch)
 { 
-    thread_charSemaphore->P();
+    thread_charSemaphore->P(); //mutex to protect from multiple thread request
 
     console->TX(ch);
 	writeDone->P ();	// wait for write to finish
@@ -48,17 +47,17 @@ void ConsoleDriver::PutChar(int ch)
 
 int ConsoleDriver::GetChar()
 {
-    thread_charSemaphore->P();
+    thread_charSemaphore->P(); //mutex to protect from multiple thread request
   
     readAvail->P ();	// wait for character to arrive
     thread_charSemaphore->V();
+
 	return console->RX ();
 }
 
 void ConsoleDriver::PutString(const char s[])
 {
-    #ifdef CHANGED
-    thread_stringSemaphore->P();
+    thread_stringSemaphore->P(); //mutex to protect string print to print all string before an other thread
 
     int i;
     for(i = 0; s[i] != '\0'; i++){ //to "read" all the char tab
@@ -67,13 +66,11 @@ void ConsoleDriver::PutString(const char s[])
     }
 
     thread_stringSemaphore->V();
-    #endif // CHANGED
 }
 
 void ConsoleDriver::GetString(char *s, int n)
 {
-    #ifdef CHANGED
-    thread_stringSemaphore->P();
+    thread_stringSemaphore->P(); 
 
     int i;
     char c;
@@ -91,7 +88,6 @@ void ConsoleDriver::GetString(char *s, int n)
     *s = '\0';
 
     thread_stringSemaphore->V();
-    #endif // CHANGED
 }
 
 
