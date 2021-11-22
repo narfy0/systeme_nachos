@@ -275,6 +275,16 @@ AddrSpace::FinishUserThreads(){
     waiting_stack_map->V(); // to notify that a thread is finnished ( and awake a new one if it is waiting to be allocated )
 }   
 
+// From TD3
+
+/*
+ Read numBytes octets from postion in executable
+ And write in virtual addr space define by page table "pageTable" size of "numPages"
+*/
+static voidReadAtVirtual(OpenFile *executable, int virtualaddr, int numBytes, int position, TranslationEntry *pageTable, unsigned numPages){
+
+}
+
 #endif //CHANGED
 
 //----------------------------------------------------------------------
