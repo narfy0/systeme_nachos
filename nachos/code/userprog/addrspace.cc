@@ -284,6 +284,22 @@ AddrSpace::FinishUserThreads(){
 */
 static void ReadAtVirtual(OpenFile *executable, int virtualaddr, int numBytes, int position, TranslationEntry *pageTable, unsigned numPages){
 
+    char tmp[numBytes];
+
+    TranslationEntry *tmp_pageTable = machine->currentPageTable;
+    int tmp_numPages = machine->currentPageTableSize;
+
+    machine->currentPageTable = pageTable;
+    machine->currentPageTableSize = numPages;
+
+    executable->ReadAt(&tmp, numBytes, position);
+    //copy the content of the executable file in a tampon
+    for(int i = 0; i < numBytes; i++){
+        machine->WriteMem(virtualaddr + i, 1, tmp[i]);    
+    }
+
+    machine->currentPageTable = tmp_pageTable;
+    machine->currentPageTableSize = tmp_numPages;
 }
 
 #endif //CHANGED
