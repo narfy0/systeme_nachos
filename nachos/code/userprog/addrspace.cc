@@ -42,8 +42,6 @@ int threadCount = 0;
 static Semaphore *mutex_countingThread;
 // semaphore to wait stack allocation if already too many user threads allocated
 static Semaphore *waiting_stack_map;
-// a bitmap object to count the free section in stack
-BitMap *stack_map = new BitMap(4); // 4 = number of user thread creatable and the parent thread
 
 #endif //CHANGED
 
@@ -155,6 +153,9 @@ AddrSpace::AddrSpace (OpenFile * executable)
     mutex_countingThread = new Semaphore("thread counter mutex", 1);
     waiting_stack_map = new Semaphore("stack map waiter", 3);
     
+    // a bitmap object to count the free section in stack
+    stack_map = new BitMap(4); // 4 = number of user thread creatable and the parent thread
+
     // mark the section of the parent thread used
     stack_map->Mark(0);
     index_map = 0;
@@ -281,7 +282,7 @@ AddrSpace::FinishUserThreads(){
  Read numBytes octets from postion in executable
  And write in virtual addr space define by page table "pageTable" size of "numPages"
 */
-static voidReadAtVirtual(OpenFile *executable, int virtualaddr, int numBytes, int position, TranslationEntry *pageTable, unsigned numPages){
+static void ReadAtVirtual(OpenFile *executable, int virtualaddr, int numBytes, int position, TranslationEntry *pageTable, unsigned numPages){
 
 }
 

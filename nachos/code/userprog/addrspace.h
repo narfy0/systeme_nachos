@@ -19,6 +19,10 @@
 #include "noff.h"
 #include "list.h"
 
+#ifdef CHANGED
+#include "bitmap.h"
+#endif //CHANGED
+
 #define UserStacksAreaSize		1024	// increase this as necessary!
 
 #ifdef CHANGED
@@ -63,6 +67,8 @@ class AddrSpace:public dontcopythis
     unsigned int numPages;	// Number of pages in the page table
 
     #ifdef CHANGED
+    // the table of accessible section in stack
+    BitMap *stack_map;
     // current addrspaces's index in free section in stack
     int index_map;
     #endif //CHANGED
