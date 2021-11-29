@@ -126,8 +126,11 @@ AddrSpace::AddrSpace (OpenFile * executable)
       {
 	  DEBUG ('a', "Initializing code segment, at 0x%x, size 0x%x\n",
 		 noffH.code.virtualAddr, noffH.code.size);
-	  executable->ReadAt (&(machine->mainMemory[noffH.code.virtualAddr]),
-			      noffH.code.size, noffH.code.inFileAddr);
+	  //executable->ReadAt (&(machine->mainMemory[noffH.code.virtualAddr]),
+	  //		      noffH.code.size, noffH.code.inFileAddr);
+        TranslationEntry *virtualPageTable = new TranslationEntry[numPages];        
+        ReadAtVirtual(executable, machine->mainMemory[noffH.code.virtualAddr], 
+                        noffH.code.size, noffH.code.inFileAddr, virtualPageTable, numPages);
       }
     if (noffH.initData.size > 0)
       {
