@@ -134,8 +134,8 @@ AddrSpace::AddrSpace (OpenFile * executable)
 	  //executable->ReadAt (&(machine->mainMemory[noffH.code.virtualAddr]),
 	  //		      noffH.code.size, noffH.code.inFileAddr);
         #ifdef CHANGED
-        TranslationEntry *virtualPageTable = new TranslationEntry[numPages];        
-        ReadAtVirtual(executable, noffH.code.virtualAddr, noffH.code.size, noffH.code.inFileAddr, virtualPageTable, numPages);
+        //TranslationEntry *virtualPageTable = new TranslationEntry[numPages];        
+        ReadAtVirtual(executable, noffH.code.virtualAddr, noffH.code.size, noffH.code.inFileAddr, pageTable, numPages);
         #endif //CHANGED 
     }
     if (noffH.initData.size > 0)
@@ -147,8 +147,8 @@ AddrSpace::AddrSpace (OpenFile * executable)
 		//	       [noffH.initData.virtualAddr]),
 		//	      noffH.initData.size, noffH.initData.inFileAddr);
         #ifdef CHANGED
-        TranslationEntry *virtualPageTable = new TranslationEntry[numPages];        
-        ReadAtVirtual(executable, noffH.initData.virtualAddr, noffH.initData.size, noffH.initData.inFileAddr, virtualPageTable, numPages);
+        //TranslationEntry *virtualPageTable = new TranslationEntry[numPages];        
+        ReadAtVirtual(executable, noffH.initData.virtualAddr, noffH.initData.size, noffH.initData.inFileAddr, pageTable, numPages);
         #endif //CHANGED
       }
 
