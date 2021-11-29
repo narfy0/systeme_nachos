@@ -1,10 +1,13 @@
 #ifdef CHANGED
 
 #include "pageprovider.h"
+#include "bitmap.h"
 
 //Constructor
-PageProvider::PageProvider (unsigned int numPage)
+PageProvider::PageProvider (unsigned int numPages)
 {
+    //the bit map which manage physical pages
+    physicalPageTable_map = new BitMap(numPages);
 }
 
 //Destructor
