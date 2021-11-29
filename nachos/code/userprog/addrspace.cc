@@ -27,13 +27,6 @@
 #include "bitmap.h"
 #endif //CHANGED
 
-//----------------------------------------------------------------------
-// SwapHeader
-//      Do little endian to big endian conversion on the bytes in the 
-//      object file header, in case the file was generated on a little
-//      endian machine, and we're now running on a big endian machine.
-//----------------------------------------------------------------------
-
 #ifdef CHANGED
 
 // variable to count user thread
@@ -43,8 +36,23 @@ static Semaphore *mutex_countingThread;
 // semaphore to wait stack allocation if already too many user threads allocated
 static Semaphore *waiting_stack_map;
 
+//FROM TD3
+/*
+ Read numBytes octets from postion in executable
+ And write in virtual addr space define by page table "pageTable" size of "numPages"
+
+ Declared here but implemants at the end of the file in order to make it cleaner for us
+*/
+void ReadAtVirtual(OpenFile *executable, int virtualaddr, int numBytes, int position, TranslationEntry *pageTable, unsigned numPages);
 #endif //CHANGED
 
+
+//----------------------------------------------------------------------
+// SwapHeader
+//      Do little endian to big endian conversion on the bytes in the 
+//      object file header, in case the file was generated on a little
+//      endian machine, and we're now running on a big endian machine.
+//----------------------------------------------------------------------
 static void
 SwapHeader (NoffHeader * noffH)
 {
@@ -281,29 +289,7 @@ AddrSpace::FinishUserThreads(){
 
 // From TD3
 
-/*
- Read numBytes octets from postion in executable
- And write in virtual addr space define by page table "pageTable" size of "numPages"
-*/
-static void ReadAtVirtual(OpenFile *executable, int virtualaddr, int numBytes, int position, TranslationEntry *pageTable, unsigned numPages){
-
-    char tmp[numBytes];
-
-    TranslationEntry *tmp_pageTable = machine->currentPageTable;
-    int tmp_numPages = machine->currentPageTableSize;
-
-    machine->currentPageTable = pageTable;
-    machine->currentPageTableSize = numPages;
-
-    executable->ReadAt(&tmp, numBytes, position);
-    //copy the content of the executable file in a tampon
-    for(int i = 0; i < numBytes; i++){
-        machine->WriteMem(virtualaddr + i, 1, tmp[i]);    
-    }
-
-    machine->currentPageTable = tmp_pageTable;
-    machine->currentPageTableSize = tmp_numPages;
-}
+//readAtvirtual
 
 #endif //CHANGED
 
@@ -422,3 +408,31 @@ AddrSpace::RestoreState ()
     machine->currentPageTable = pageTable;
     machine->currentPageTableSize = numPages;
 }
+
+#ifdef CHANGED
+//FROM TD3
+//TODO change its
+/*
+ Read numBytes octets from postion in executable
+ And write in virtual addr space define by page table "pageTable" size of "numPages"
+*/
+void ReadAtVirtual(OpenFile *executable, int virtualaddr, int numBytes, int position, TranslationEntry *pageTable, unsigned numPages){
+
+    char tmp[numBytes];
+
+    TranslationEntry *tmp_pageTable = machine->currentPageTable;
+    int tmp_numPages = machine->currentPageTableSize;
+
+    machine->currentPageTable = pageTable;
+    machine->currentPageTableSize = numPages;
+
+    executable->ReadAt(&tmp, numBytes, position);
+    //copy the content of the executable file in a tampon
+    for(int i = 0; i < numBytes; i++){
+        machine->WriteMem(virtualaddr + i, 1, tmp[i]);    
+    }
+
+    machine->currentPageTable = tmp_pageTable;
+    machine->currentPageTableSize = tmp_numPages;
+}
+#endif // CHANGED
