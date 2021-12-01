@@ -18,11 +18,11 @@ class PageProvider:public dontcopythis
     PageProvider (unsigned int numPages);	// Create a page provider
     ~PageProvider ();	// De-allocate a page provider
 
-    void GetEmptyPage();
+    int GetEmptyPage();
 
     void ReleasePage();
 
-    void NumAvailPage();
+    int NumAvailPage();
 
 
   private:
