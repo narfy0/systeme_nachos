@@ -35,6 +35,10 @@ SynchDisk *synchDisk;
 Machine *machine;		// user program memory and registers
 #endif
 
+#ifdef CHANGED
+PageProvider *pageProvider;
+#endif // CHANGED
+
 #ifdef NETWORK
 PostOffice *postOffice;
 #endif
@@ -185,6 +189,11 @@ Initialize (int argc, char **argv)
 
 #ifdef USER_PROGRAM
     machine = new Machine (debugUserProg);	// this must come first
+
+	#ifdef CHANGED
+	pageProvider = new PageProvider(32); //TODO change it 
+	#endif // CHANGED
+
 #endif
 
 #ifdef FILESYS
@@ -236,6 +245,11 @@ Cleanup ()
 	if(consoledriver){
 		delete consoledriver;
 		consoledriver = NULL;
+	}
+
+	if(pageProvider){
+		delete pageProvider;
+		pageProvider = NULL;
 	}
 	#endif // CHANGED
 

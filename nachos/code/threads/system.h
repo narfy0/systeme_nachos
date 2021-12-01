@@ -18,6 +18,7 @@
 
 #ifdef CHANGED
 #include "../userprog/consoledriver.h"
+#include "../userprog/pageprovider.h"
 #endif // CHANGED
 
 // Initialization and cleanup routines

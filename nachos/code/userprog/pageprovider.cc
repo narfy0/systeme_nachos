@@ -22,6 +22,11 @@ int PageProvider::GetEmptyPage(){
 
     //initialize found page to 0 (thanks to memeset)
     //TODO
+    /*
+    for each addrs in physicalPage{
+        memset(addr, 0, pageSize);
+    }
+    */
 
     return freePageIndex;
 }

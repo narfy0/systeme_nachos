@@ -1,13 +1,6 @@
 #ifdef CHANGED
 
 #ifndef PAGEPROVIDER_H
-#define ADDRSPACE_H
-
-#include "copyright.h"
-#include "filesys.h"
-#include "translate.h"
-#include "noff.h"
-#include "list.h"
 
 #include "bitmap.h"
 
@@ -34,10 +27,6 @@ class PageProvider:public dontcopythis
 
     
 };
-
-
-
-extern List AddrspaceList;
 
 #endif // PAGEPROVIDER_H
 #endif // CHANGED

@@ -17,7 +17,7 @@
 
 #include "copyright.h"
 #include "utility.h"
-#include "openfile.h"
+#include "../filesys/openfile.h"
 
 // The following class defines a "bitmap" -- an array of bits,
 // each of which can be independently set, cleared, and tested.
