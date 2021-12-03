@@ -116,17 +116,22 @@ AddrSpace::AddrSpace (OpenFile * executable)
     // first, set up the translation 
     pageTable = new TranslationEntry[numPages];
     for (i = 0; i < numPages; i++)
-      {
+    {
     #ifdef CHANGED
-	  pageTable[i].physicalPage = i + 1;	// for now, phys page # = virtual page #
+	  //Action I.4
+        //pageTable[i].physicalPage = i + 1;	// for now, phys page # = virtual page #
+
+      //Action I.6
+        pageTable[i].physicalPage = pageProvider->GetEmptyPage();	
+
     #endif //CHANGED 
-	  pageTable[i].valid = TRUE;
-	  pageTable[i].use = FALSE;
-	  pageTable[i].dirty = FALSE;
-	  pageTable[i].readOnly = FALSE;	// if the code segment was entirely on 
+	    pageTable[i].valid = TRUE;
+	    pageTable[i].use = FALSE;
+	    pageTable[i].dirty = FALSE;
+	    pageTable[i].readOnly = FALSE;	// if the code segment was entirely on 
 	  // a separate page, we could set its 
 	  // pages to be read-only
-      }
+    }
 
 // then, copy in the code and data segments into memory
     if (noffH.code.size > 0)
@@ -185,10 +190,19 @@ AddrSpace::AddrSpace (OpenFile * executable)
 
 AddrSpace::~AddrSpace () // we will use pageProvider.releasePage()
 {
-  delete [] pageTable;
-  pageTable = NULL;
+    #ifdef CHANGED
+    for (unsigned int i = 0; i < numPages; i++)
+    {
+        if(pageTable[i].valid == FALSE){
+            pageProvider->ReleasePage(i, pageTable);
+        }
+    }
+    #endif
 
-  AddrSpaceList.Remove(this);
+    delete [] pageTable;
+    pageTable = NULL;
+
+    AddrSpaceList.Remove(this);
 }
 
 //----------------------------------------------------------------------

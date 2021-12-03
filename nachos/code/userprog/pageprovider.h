@@ -4,7 +4,8 @@
 #define PAGEPROVIDER_H
 
 #include "machine.h"
-#include "system.h"
+//TODO see if we keep it 
+//#include "system.h"
 #include "bitmap.h"
 
 class PageProvider:public dontcopythis
@@ -16,7 +17,7 @@ class PageProvider:public dontcopythis
 
     int GetEmptyPage();
 
-    void ReleasePage();
+    void ReleasePage(int index_physical_page, TranslationEntry *pageTable);
 
     int NumAvailPage();
 

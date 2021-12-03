@@ -18,28 +18,21 @@ PageProvider::~PageProvider ()
 int PageProvider::GetEmptyPage(){
     //get index of a free page
     int freePageIndex = physicalPageTable_map->Find();
-    //TODO think about find() side effect !
 
     //initialize found page to 0 (thanks to memeset)
-    //TODO
-    /*
-    for each addrs in physicalPage{
-        memset(addr, 0, pageSize);
-    }
-    */
-
+    //TODO CHANGE AND COMPLETE
+    int begin_addr = freePageIndex * PageSize; /* + possible espace inconnu*/
+    memset((void*)begin_addr, 0, PageSize);
+    
     return freePageIndex;
 }
 
-void PageProvider::ReleasePage(){
-    //get an empty page index
-    int emptyPageIndex = GetEmptyPage();
-
+void PageProvider::ReleasePage(int index_physical_page, TranslationEntry *pageTable){
     //free a page
-    //TODO
+    pageTable[index_physical_page].valid = TRUE;
 
     //set the bitamp to notify the page is released
-    physicalPageTable_map->Clear(emptyPageIndex);
+    physicalPageTable_map->Clear(index_physical_page);
 }
 
 int PageProvider::NumAvailPage(){
