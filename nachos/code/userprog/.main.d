@@ -3,8 +3,7 @@
  ../threads/system.h ../threads/../userprog/consoledriver.h \
  ../threads/utility.h ../machine/console.h \
  ../threads/../userprog/pageprovider.h ../machine/machine.h \
- ../machine/translate.h ../machine/disk.h ../threads/system.h \
- ../threads/../userprog/bitmap.h \
+ ../machine/translate.h ../machine/disk.h ../threads/../userprog/bitmap.h \
  ../threads/../userprog/../filesys/openfile.h ../threads/thread.h \
  ../threads/list.h ../userprog/addrspace.h ../filesys/filesys.h \
  ../filesys/openfile.h ../machine/translate.h ../bin/noff.h \

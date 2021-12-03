@@ -61,6 +61,7 @@ extern PostOffice *postOffice;
 #ifdef CHANGED
 #ifdef USER_PROGRAM
 extern ConsoleDriver *consoledriver;
+extern PageProvider *pageProvider;
 #endif // USER_PROGRAM
 
 //constant for string buffer max size (action V.3)

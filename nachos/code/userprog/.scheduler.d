@@ -7,6 +7,5 @@
  ../bin/noff.h ../threads/list.h ../userprog/bitmap.h \
  ../userprog/../filesys/openfile.h ../threads/system.h \
  ../threads/../userprog/consoledriver.h ../machine/console.h \
- ../threads/../userprog/pageprovider.h ../threads/system.h \
- ../threads/../userprog/bitmap.h ../machine/interrupt.h \
- ../machine/stats.h ../machine/timer.h
+ ../threads/../userprog/pageprovider.h ../threads/../userprog/bitmap.h \
+ ../machine/interrupt.h ../machine/stats.h ../machine/timer.h
