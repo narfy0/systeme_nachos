@@ -98,7 +98,7 @@ AddrSpace::AddrSpace (OpenFile * executable)
     /* Check that this is really a MIPS program */
     ASSERT (noffH.noffMagic == NOFFMAGIC);
 
-// how big is address space?
+    // how big is address space?
     size = noffH.code.size + noffH.initData.size + noffH.uninitData.size + UserStacksAreaSize;	// we need to increase the size
     // to leave room for the stack
     numPages = divRoundUp (size, PageSize);
@@ -113,7 +113,7 @@ AddrSpace::AddrSpace (OpenFile * executable)
 
     DEBUG ('a', "Initializing address space, num pages %d, total size 0x%x\n",
 	   numPages, size);
-// first, set up the translation 
+    // first, set up the translation 
     pageTable = new TranslationEntry[numPages];
     for (i = 0; i < numPages; i++)
       {
@@ -183,7 +183,7 @@ AddrSpace::AddrSpace (OpenFile * executable)
 //      Dealloate an address space.  Nothing for now!
 //----------------------------------------------------------------------
 
-AddrSpace::~AddrSpace ()
+AddrSpace::~AddrSpace () // we will use pageProvider.releasePage()
 {
   delete [] pageTable;
   pageTable = NULL;

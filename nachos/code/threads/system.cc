@@ -191,7 +191,7 @@ Initialize (int argc, char **argv)
     machine = new Machine (debugUserProg);	// this must come first
 
 	#ifdef CHANGED
-	pageProvider = new PageProvider(32); //TODO change it 
+	pageProvider = new PageProvider(); //TODO change it 
 	#endif // CHANGED
 
 #endif

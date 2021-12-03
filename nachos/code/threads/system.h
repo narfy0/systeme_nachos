@@ -8,6 +8,13 @@
 #ifndef SYSTEM_H
 #define SYSTEM_H
 
+#ifdef CHANGED
+#include "../userprog/consoledriver.h"
+#include "../userprog/pageprovider.h"
+//#include "consoledriver.h"
+//#include "pageprovider.h"
+#endif // CHANGED
+
 #include "copyright.h"
 #include "utility.h"
 #include "thread.h"
@@ -16,10 +23,7 @@
 #include "stats.h"
 #include "timer.h"
 
-#ifdef CHANGED
-#include "../userprog/consoledriver.h"
-#include "../userprog/pageprovider.h"
-#endif // CHANGED
+
 
 // Initialization and cleanup routines
 extern void Initialize (int argc, char **argv);	// Initialization,

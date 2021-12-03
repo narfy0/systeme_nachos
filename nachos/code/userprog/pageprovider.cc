@@ -4,10 +4,10 @@
 #include "bitmap.h"
 
 //Constructor
-PageProvider::PageProvider (unsigned int numPages)
+PageProvider::PageProvider ()
 {
     //the bit map which manage physical pages
-    physicalPageTable_map = new BitMap(numPages);
+    physicalPageTable_map = new BitMap(NumPhysPages);
 }
 
 //Destructor

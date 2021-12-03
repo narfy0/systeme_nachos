@@ -1,14 +1,17 @@
 #ifdef CHANGED
 
 #ifndef PAGEPROVIDER_H
+#define PAGEPROVIDER_H
 
+#include "machine.h"
+#include "system.h"
 #include "bitmap.h"
 
 class PageProvider:public dontcopythis
 {
 
   public:
-    PageProvider (unsigned int numPages);	// Create a page provider
+    PageProvider ();	// Create a page provider
     ~PageProvider ();	// De-allocate a page provider
 
     int GetEmptyPage();
