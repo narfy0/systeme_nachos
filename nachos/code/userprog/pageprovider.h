@@ -8,6 +8,9 @@
 //#include "system.h"
 #include "bitmap.h"
 
+class System;
+extern Machine *machine;	// user program memory and registers
+
 class PageProvider:public dontcopythis
 {
 

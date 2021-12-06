@@ -115,6 +115,10 @@ AddrSpace::AddrSpace (OpenFile * executable)
 	   numPages, size);
     // first, set up the translation 
     pageTable = new TranslationEntry[numPages];
+    
+    //check if enough page
+    //ASSERT(1); //TODO an exception (cf ~rnamyst/etudiants/ressources/c++/exception.C ) //try cathc in process create
+    
     for (i = 0; i < numPages; i++)
     {
     #ifdef CHANGED
@@ -122,8 +126,9 @@ AddrSpace::AddrSpace (OpenFile * executable)
         //pageTable[i].physicalPage = i + 1;	// for now, phys page # = virtual page #
 
       //Action I.6
+        DEBUG('x', "AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = %d\n", i);
         pageTable[i].physicalPage = pageProvider->GetEmptyPage();	
-
+        DEBUG('x', "AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = %d\n", i);
     #endif //CHANGED 
 	    pageTable[i].valid = TRUE;
 	    pageTable[i].use = FALSE;
