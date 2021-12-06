@@ -27,7 +27,8 @@
 
 #ifdef CHANGED
 #include "consoledriver.h"
-#include "userthread.h" 
+#include "userthread.h"
+#include "userprocess.h" 
 
 /**
  * Copy a string, char by char, from MIPS world (using "from" address in args)
@@ -239,6 +240,32 @@ ExceptionHandler (ExceptionType which)
 		{
 			DEBUG ('s', "SC_Exit : Shutdown, initiated by user program.\n");
 		    interrupt->Powerdown ();
+		    break;
+		}
+
+		case SC_ForkExec:
+		{
+			DEBUG ('s', "SC_ForkExec : .\n");
+		    
+			int name_file = machine->ReadRegister(4);
+			
+			char stringAddr[MAX_STRING_SIZE];
+
+			//number of written char
+			int writtenChar = MAX_STRING_SIZE;
+
+			//copy a String from MIPS memory to a kernel pointer
+			int returnCopy = copyStringFromMachine(name_file, stringAddr, writtenChar);
+			if(returnCopy > writtenChar){
+				printf("Error : overflow memory while reading");
+		    	ASSERT(FALSE);	
+			}
+
+			int x = doForkExec(stringAddr);
+
+			//TODO change 
+			machine->WriteRegister (2, x);
+
 		    break;
 		}	
 
