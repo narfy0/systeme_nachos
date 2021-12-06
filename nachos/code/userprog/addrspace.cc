@@ -117,7 +117,7 @@ AddrSpace::AddrSpace (OpenFile * executable)
     pageTable = new TranslationEntry[numPages];
     
     //check if enough page
-    //ASSERT(1); //TODO an exception (cf ~rnamyst/etudiants/ressources/c++/exception.C ) //try cathc in process create
+    ASSERT(pageProvider->NumAvailPage() > numPages);
     
     for (i = 0; i < numPages; i++)
     {
