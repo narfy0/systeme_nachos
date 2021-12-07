@@ -65,7 +65,7 @@ extern PageProvider *pageProvider;
 #endif // USER_PROGRAM
 
 //constant for string buffer max size (action V.3)
-const int MAX_STRING_SIZE = 10; 
+const int MAX_STRING_SIZE = 30; 
 
 #endif // CHANGED
 
