@@ -1,169 +1,229 @@
 PageProvider number of available pages = 64
+PageProvider number of available pages = 64
 AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 0
+PageProvider number of available pages = 64
 PageProvider getEmptyPage : before memeset
 PageProvider getEmptyPage : after memset (returned value = 0)
 AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 0
 AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 1
+PageProvider number of available pages = 63
 PageProvider getEmptyPage : before memeset
 PageProvider getEmptyPage : after memset (returned value = 1)
 AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 1
 AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 2
+PageProvider number of available pages = 62
 PageProvider getEmptyPage : before memeset
 PageProvider getEmptyPage : after memset (returned value = 2)
 AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 2
 AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 3
+PageProvider number of available pages = 61
 PageProvider getEmptyPage : before memeset
 PageProvider getEmptyPage : after memset (returned value = 3)
 AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 3
 AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 4
+PageProvider number of available pages = 60
 PageProvider getEmptyPage : before memeset
 PageProvider getEmptyPage : after memset (returned value = 4)
 AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 4
 AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 5
+PageProvider number of available pages = 59
 PageProvider getEmptyPage : before memeset
 PageProvider getEmptyPage : after memset (returned value = 5)
 AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 5
 AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 6
+PageProvider number of available pages = 58
 PageProvider getEmptyPage : before memeset
 PageProvider getEmptyPage : after memset (returned value = 6)
 AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 6
 AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 7
+PageProvider number of available pages = 57
 PageProvider getEmptyPage : before memeset
 PageProvider getEmptyPage : after memset (returned value = 7)
 AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 7
 AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 8
+PageProvider number of available pages = 56
 PageProvider getEmptyPage : before memeset
 PageProvider getEmptyPage : after memset (returned value = 8)
 AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 8
 AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 9
+PageProvider number of available pages = 55
 PageProvider getEmptyPage : before memeset
 PageProvider getEmptyPage : after memset (returned value = 9)
 AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 9
 AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 10
+PageProvider number of available pages = 54
 PageProvider getEmptyPage : before memeset
 PageProvider getEmptyPage : after memset (returned value = 10)
 AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 10
 AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 11
+PageProvider number of available pages = 53
 PageProvider getEmptyPage : before memeset
 PageProvider getEmptyPage : after memset (returned value = 11)
 AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 11
 AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 12
+PageProvider number of available pages = 52
 PageProvider getEmptyPage : before memeset
 PageProvider getEmptyPage : after memset (returned value = 12)
 AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 12
-Debug : doForkExec, executable value = 0x563b54436f10
-Debug : doForkExec, before addrspace creation  
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 13
 PageProvider number of available pages = 51
-AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 0
 PageProvider getEmptyPage : before memeset
 PageProvider getEmptyPage : after memset (returned value = 13)
-AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 0
-AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 1
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 13
+Debug : doForkExec, executable value = 0x55b890662f50
+Debug : doForkExec, before addrspace creation  
+PageProvider number of available pages = 50
+PageProvider number of available pages = 50
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 0
+PageProvider number of available pages = 50
 PageProvider getEmptyPage : before memeset
 PageProvider getEmptyPage : after memset (returned value = 14)
-AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 1
-AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 2
-PageProvider getEmptyPage : before memeset
-PageProvider getEmptyPage : after memset (returned value = 15)
-AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 2
-AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 3
-PageProvider getEmptyPage : before memeset
-PageProvider getEmptyPage : after memset (returned value = 16)
-AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 3
-AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 4
-PageProvider getEmptyPage : before memeset
-PageProvider getEmptyPage : after memset (returned value = 17)
-AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 4
-AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 5
-PageProvider getEmptyPage : before memeset
-PageProvider getEmptyPage : after memset (returned value = 18)
-AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 5
-AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 6
-PageProvider getEmptyPage : before memeset
-PageProvider getEmptyPage : after memset (returned value = 19)
-AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 6
-AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 7
-PageProvider getEmptyPage : before memeset
-PageProvider getEmptyPage : after memset (returned value = 20)
-AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 7
-AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 8
-PageProvider getEmptyPage : before memeset
-PageProvider getEmptyPage : after memset (returned value = 21)
-AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 8
-AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 9
-PageProvider getEmptyPage : before memeset
-PageProvider getEmptyPage : after memset (returned value = 22)
-AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 9
-AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 10
-PageProvider getEmptyPage : before memeset
-PageProvider getEmptyPage : after memset (returned value = 23)
-AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 10
-AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 11
-PageProvider getEmptyPage : before memeset
-PageProvider getEmptyPage : after memset (returned value = 24)
-AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 11
-Debug : doForkExec, after addrspace creation  
-Debug : doForkExec, new kernel thread created 
-Debug : doForkExec, executable value = 0x563b5444e3a0
-Debug : doForkExec, before addrspace creation  
-PageProvider number of available pages = 39
-AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 0
-PageProvider getEmptyPage : before memeset
-PageProvider getEmptyPage : after memset (returned value = 25)
 AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 0
 AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 1
+PageProvider number of available pages = 49
 PageProvider getEmptyPage : before memeset
-PageProvider getEmptyPage : after memset (returned value = 26)
+PageProvider getEmptyPage : after memset (returned value = 15)
 AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 1
 AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 2
+PageProvider number of available pages = 48
 PageProvider getEmptyPage : before memeset
-PageProvider getEmptyPage : after memset (returned value = 27)
+PageProvider getEmptyPage : after memset (returned value = 16)
 AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 2
 AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 3
+PageProvider number of available pages = 47
 PageProvider getEmptyPage : before memeset
-PageProvider getEmptyPage : after memset (returned value = 28)
+PageProvider getEmptyPage : after memset (returned value = 17)
 AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 3
 AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 4
+PageProvider number of available pages = 46
 PageProvider getEmptyPage : before memeset
-PageProvider getEmptyPage : after memset (returned value = 29)
+PageProvider getEmptyPage : after memset (returned value = 18)
 AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 4
 AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 5
+PageProvider number of available pages = 45
 PageProvider getEmptyPage : before memeset
-PageProvider getEmptyPage : after memset (returned value = 30)
+PageProvider getEmptyPage : after memset (returned value = 19)
 AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 5
 AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 6
+PageProvider number of available pages = 44
 PageProvider getEmptyPage : before memeset
-PageProvider getEmptyPage : after memset (returned value = 31)
+PageProvider getEmptyPage : after memset (returned value = 20)
 AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 6
 AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 7
+PageProvider number of available pages = 43
 PageProvider getEmptyPage : before memeset
-PageProvider getEmptyPage : after memset (returned value = 32)
+PageProvider getEmptyPage : after memset (returned value = 21)
 AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 7
 AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 8
+PageProvider number of available pages = 42
 PageProvider getEmptyPage : before memeset
-PageProvider getEmptyPage : after memset (returned value = 33)
+PageProvider getEmptyPage : after memset (returned value = 22)
 AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 8
 AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 9
+PageProvider number of available pages = 41
 PageProvider getEmptyPage : before memeset
-PageProvider getEmptyPage : after memset (returned value = 34)
+PageProvider getEmptyPage : after memset (returned value = 23)
 AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 9
 AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 10
+PageProvider number of available pages = 40
 PageProvider getEmptyPage : before memeset
-PageProvider getEmptyPage : after memset (returned value = 35)
+PageProvider getEmptyPage : after memset (returned value = 24)
 AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 10
 AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 11
+PageProvider number of available pages = 39
 PageProvider getEmptyPage : before memeset
-PageProvider getEmptyPage : after memset (returned value = 36)
+PageProvider getEmptyPage : after memset (returned value = 25)
 AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 11
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 12
+PageProvider number of available pages = 38
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 26)
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 12
 Debug : doForkExec, after addrspace creation  
 Debug : doForkExec, new kernel thread created 
-Decrementation of process = 0 
-Machine going down!
-
-Ticks: total 89, idle 0, system 60, user 29
-Disk I/O: reads 0, writes 0
-Console I/O: reads 0, writes 0
-Paging: faults 0
-Network I/O: packets received 0, sent 0
-
-Cleaning up...
+Incrementation of process = 2 
+Debug : doForkExec, executable value = 0x55b89067a400
+Debug : doForkExec, before addrspace creation  
+PageProvider number of available pages = 37
+PageProvider number of available pages = 37
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 0
+PageProvider number of available pages = 37
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 27)
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 0
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 1
+PageProvider number of available pages = 36
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 28)
+Debug : StartUserProc, Start the function StartUserProc with the kenerl thread : new_process_thread  
+Debug : StartUserProc, well initialize the register
+Debug : StartUserProc, well load the page table register
+Debug : do_ThreadCreate, f = 448
+&AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 1
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 2
+PageProvider number of available pages = 35
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 29)
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 2
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 3
+PageProvider number of available pages = 34
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 30)
+StartUserThread begin
+Debug : StartUserThread, Schurmtz.f val = 448
+Incrementation of threads = 1 
+Debug number of section free 3 for the previous thread index 0 
+DEBUG Allocate a new stack with section 1
+Debug : StartUserThread, beginAddrStack 1392
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 3
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 4
+PageProvider number of available pages = 33
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 31)
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 4
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 5
+PageProvider number of available pages = 32
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 32)
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 5
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 6
+PageProvider number of available pages = 31
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 33)
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 6
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 7
+PageProvider number of available pages = 30
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 34)
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 7
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 8
+PageProvider number of available pages = 29
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 35)
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 8
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 9
+PageProvider number of available pages = 28
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 36)
+Debug : do_ThreadExit begin 
+Debug : finish user thread begin (count = 1)
+DEBUG BitMap.Clear free the section 1
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 9
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 10
+PageProvider number of available pages = 27
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 37)
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 10
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 11
+PageProvider number of available pages = 26
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 38)
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 11
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 12
+PageProvider number of available pages = 25
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 39)
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 12
+Debug : doForkExec, after addrspace creation  
+Debug : doForkExec, new kernel thread created 
+Incrementation of process = 3 

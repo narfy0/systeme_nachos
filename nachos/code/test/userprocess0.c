@@ -20,4 +20,6 @@ main()
 
     //from action II.1
     //while(1);
+
+    ThreadExit();
 }

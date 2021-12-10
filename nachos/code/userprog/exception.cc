@@ -241,6 +241,7 @@ ExceptionHandler (ExceptionType which)
 		{
 			DEBUG ('s', "SC_Exit : Shutdown, initiated by user program.\n");
 
+/*
 			//decrement process counter
 			mutex_countingProcess->P();
 			processCount--;
@@ -257,6 +258,7 @@ ExceptionHandler (ExceptionType which)
 			}
 
 			currentThread->Finish();
+			*/
 		    break;
 		}
 

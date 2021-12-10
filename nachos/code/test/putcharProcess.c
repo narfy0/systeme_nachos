@@ -8,6 +8,8 @@ int main()
     PutChar('x');
     
     //while(1);
+
+    ThreadExit();
 }
 
 #endif //CHANGED
