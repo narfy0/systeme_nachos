@@ -287,11 +287,6 @@ Thread::Yield ()
 void
 Thread::Sleep ()
 {
-
-    #ifdef CHANGED
-    DEBUG('x', "DEBUG in first step sleep ------\n");
-    #endif // CHANGED
-
     Thread *nextThread;
 
     ASSERT (this == currentThread);
@@ -302,10 +297,6 @@ Thread::Sleep ()
     status = BLOCKED;
     while ((nextThread = scheduler->FindNextToRun ()) == NULL)
 	interrupt->Idle ();	// no one to run, wait for an interrupt
-
-    #ifdef CHANGED
-    DEBUG('x', "DEBUG in before last step sleep ------\n");
-    #endif // CHANGED
 
     scheduler->Run (nextThread);	// returns when we've been signalled
 }

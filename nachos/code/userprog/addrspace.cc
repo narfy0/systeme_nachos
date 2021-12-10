@@ -204,11 +204,12 @@ AddrSpace::AddrSpace (OpenFile * executable)
 AddrSpace::~AddrSpace () // we will use pageProvider.releasePage()
 {
     #ifdef CHANGED
+    DEBUG('x', "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOo\n");
     for (unsigned int i = 0; i < numPages; i++)
     {
-        if(pageTable[i].valid == FALSE){
+        //if(pageTable[i].valid == FALSE){
             pageProvider->ReleasePage(i, pageTable);
-        }
+        //}
     }
     #endif
 
@@ -216,6 +217,7 @@ AddrSpace::~AddrSpace () // we will use pageProvider.releasePage()
     pageTable = NULL;
 
     AddrSpaceList.Remove(this);
+    DEBUG('x', "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n");
 }
 
 //----------------------------------------------------------------------
@@ -298,6 +300,7 @@ AddrSpace::AllocateUserStack(){
 */
 void 
 AddrSpace::FinishUserThreads(){
+    /*
     DEBUG('x', "Debug : finish user thread begin (count = %d)\n", threadCount);
 
     //if I am the last, I stop nachos process
@@ -334,15 +337,6 @@ AddrSpace::FinishUserThreads(){
             currentThread->space = NULL;
         }
 
-        
-
-        /*
-        if(processCount == 0){
-            DEBUG('x', "Debug : do_threadExit powerdown (count = %d)\n", threadCount);
-            
-            interrupt->Powerdown ();
-        }
-        */
     } else {
 
         mutex_countingThread->P(); // To protect thread counting and bitmap clearing from other thread actions
@@ -357,11 +351,24 @@ AddrSpace::FinishUserThreads(){
     }
      
     DEBUG('x', "DEBUG FinishUserThreads last step \n");
+    */
+        mutex_countingThread->P(); // To protect thread counting and bitmap clearing from other thread actions
+
+        stack_map->Clear(index_map);
+        DEBUG('x', "DEBUG BitMap.Clear free the section %d\n", index_map);
+        threadCount--;
+
+        mutex_countingThread->V();
+
+        waiting_stack_map->V();
 }   
 
 // From TD3
 
-//readAtvirtual
+int AddrSpace::GetThreadCount(){
+    return threadCount;
+    //return stack_map->NumClear();
+}
 
 #endif //CHANGED
 

@@ -47,6 +47,8 @@ class AddrSpace:public dontcopythis
 
     void FinishUserThreads();
 
+    int GetThreadCount();
+
     #endif //CHANGED
 
     void SaveState ();		// Save/restore address space-specific

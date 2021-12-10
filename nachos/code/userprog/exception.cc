@@ -259,6 +259,7 @@ ExceptionHandler (ExceptionType which)
 
 			currentThread->Finish();
 			*/
+			//interrupt->Powerdown ();
 		    break;
 		}
 

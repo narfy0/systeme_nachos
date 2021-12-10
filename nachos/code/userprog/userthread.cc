@@ -67,8 +67,68 @@ int do_ThreadCreate(int f, int arg){
 
 void do_ThreadExit(){
     DEBUG('x', "Debug : do_ThreadExit begin \n");
-    currentThread->space->FinishUserThreads();
-    currentThread->Finish();
+    //currentThread->space->FinishUserThreads();
+
+    int threadCount = currentThread->space->GetThreadCount();
+
+    //if I am the last, I stop nachos process
+    if(threadCount == 0){
+
+        //check if it's the last process to exit
+        DEBUG('x', "DEBUG : before check if it is the last process to ending all / processCount = %d \n", processCount);
+        if(processCount == 0){
+            interrupt->Powerdown ();
+        } else {
+            DEBUG('x', "DEBUG : Finnish last User Thread, before curretnThread->Finnish() / currentThread = %d\n", currentThread);
+            //currentThread->Finish();
+
+
+
+            //decrement process counter
+            mutex_countingProcess->P();
+            processCount--;
+            DEBUG('x', "Decrementation of process = %d / currentThread = %d\n", processCount, currentThread);
+            mutex_countingProcess->V();
+
+
+            
+            delete currentThread->space;
+            currentThread->space = NULL;
+            
+
+            currentThread->Finish();
+            
+        }
+
+        
+
+        /*
+        if(processCount == 0){
+            DEBUG('x', "Debug : do_threadExit powerdown (count = %d)\n", threadCount);
+            
+            interrupt->Powerdown ();
+        }
+        */
+    } else {
+
+        /*
+        mutex_countingThread->P(); // To protect thread counting and bitmap clearing from other thread actions
+
+        stack_map->Clear(index_map);
+        DEBUG('x', "DEBUG BitMap.Clear free the section %d\n", index_map);
+        threadCount--;
+
+        mutex_countingThread->V();
+
+        waiting_stack_map->V(); // to notify that a thread is finnished ( and awake a new one if it is waiting to be allocated )
+        */
+       currentThread->space->FinishUserThreads();
+       currentThread->Finish();
+    }
+     
+    DEBUG('x', "DEBUG FinishUserThreads last step \n");
+
+    //currentThread->Finish();
     
 }
 
