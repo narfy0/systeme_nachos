@@ -2,7 +2,7 @@
 
 main()
 {
-    ForkExec("../test/putchar");
-    ForkExec("../test/putchar");
+    ForkExec("../test/putcharProcess");
+    ForkExec("../test/putcharProcess");
     while(1);
 }
