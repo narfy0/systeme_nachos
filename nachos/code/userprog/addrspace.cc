@@ -35,6 +35,8 @@ int threadCount = 0;
 static Semaphore *mutex_countingThread;
 // semaphore to wait stack allocation if already too many user threads allocated
 static Semaphore *waiting_stack_map;
+//mutex to controll the reservation of memory page when use PageProvider
+static Semaphore *mutex_reserved_page  = new Semaphore("page reservation mutex", 1);
 
 //FROM TD3
 /*
@@ -118,18 +120,24 @@ AddrSpace::AddrSpace (OpenFile * executable)
     
     //check if enough page
     ASSERT(pageProvider->NumAvailPage() > numPages);
+    mutex_reserved_page->P();
+    pageProvider->ReservedPage(numPages);
+    mutex_reserved_page->V();
     
     for (i = 0; i < numPages; i++)
     {
-    #ifdef CHANGED
+        #ifdef CHANGED
 	  //Action I.4
         //pageTable[i].physicalPage = i + 1;	// for now, phys page # = virtual page #
 
       //Action I.6
         DEBUG('x', "AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = %d\n", i);
+        mutex_reserved_page->P();
         pageTable[i].physicalPage = pageProvider->GetEmptyPage();	
+        mutex_reserved_page->V();
         DEBUG('x', "AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = %d\n", i);
-    #endif //CHANGED 
+        #endif //CHANGED 
+
 	    pageTable[i].valid = TRUE;
 	    pageTable[i].use = FALSE;
 	    pageTable[i].dirty = FALSE;
@@ -295,7 +303,9 @@ AddrSpace::FinishUserThreads(){
     //if I am the last, I stop nachos process
     if(threadCount == 0){
 
-        DEBUG ('s', "SC_Exit : Shutdown, initiated by user program.\n");
+
+        DEBUG('x', "----------------------------\n");
+
 
         //decrement process counter
         mutex_countingProcess->P();
@@ -308,6 +318,7 @@ AddrSpace::FinishUserThreads(){
         currentThread->space = NULL;
 
         //check if it's the last process to exit
+        DEBUG('x', "DEBUG : before check if it is the last process to ending all / processCount = %d \n", processCount);
         if(processCount == 0){
             interrupt->Powerdown ();
         }

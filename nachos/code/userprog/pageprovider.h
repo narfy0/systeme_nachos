@@ -24,6 +24,8 @@ class PageProvider:public dontcopythis
 
     int NumAvailPage();
 
+    void ReservedPage(int nbToReserved);
+
 
   private:
     // Number of pages in the page table

@@ -3,11 +3,15 @@
 #include "pageprovider.h"
 #include "bitmap.h"
 
+int nbReserved;
+
 //Constructor
 PageProvider::PageProvider ()
 {
     //the bit map which manage physical pages
     physicalPageTable_map = new BitMap(NumPhysPages);
+
+    nbReserved = 0;
 }
 
 //Destructor
@@ -18,17 +22,36 @@ PageProvider::~PageProvider ()
 }
 
 int PageProvider::GetEmptyPage(){
-    //get index of a free page
-    int freePageIndex = physicalPageTable_map->Find();
 
-    //initialize found page to 0 (thanks to memeset)
-    DEBUG('x', "PageProvider getEmptyPage : before memeset\n");
-    
-    memset(&(machine->mainMemory[freePageIndex * PageSize]), 0, PageSize);
+    int freePageIndex = -1;
+    int nbAvail = NumAvailPage();
 
-    DEBUG('x', "PageProvider getEmptyPage : after memset (returned value = %d)\n", freePageIndex);
+    if(nbAvail > 0){
+
+        //get index of a free page
+        freePageIndex = physicalPageTable_map->Find();
+        nbReserved--;
+
+        //initialize found page to 0 (thanks to memeset)
+        DEBUG('x', "PageProvider getEmptyPage : before memeset\n");
+
+        if(freePageIndex != -1){
+            memset(&(machine->mainMemory[freePageIndex * PageSize]), 0, PageSize);
+        }
+
+        DEBUG('x', "PageProvider getEmptyPage : after memset (returned value = %d)\n", freePageIndex);
+
+    }
     
     return freePageIndex;
+}
+
+void PageProvider::ReservedPage(int nbToReserved){
+    int nbAvail = NumAvailPage();
+
+    ASSERT(nbAvail >= nbToReserved);
+    nbReserved += nbToReserved;
+
 }
 
 void PageProvider::ReleasePage(int index_physical_page, TranslationEntry *pageTable){
@@ -44,7 +67,7 @@ int PageProvider::NumAvailPage(){
     int nbFreePage = physicalPageTable_map->NumClear(); // - nulber of reserved page
 
     DEBUG('x', "PageProvider number of available pages = %d\n", nbFreePage);
-    return nbFreePage;
+    return nbFreePage - nbReserved;
 }
 
 //method to reserve a page
