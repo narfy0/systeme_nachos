@@ -4,6 +4,7 @@
 #include "machine.h"
 #include "addrspace.h"
 #include "system.h"
+#include "synch.h"
 
 int doForkExec(const char *filename){
 
@@ -35,6 +36,13 @@ int doForkExec(const char *filename){
     // close file
     delete executable;
 
+    //increment the count of process 
+    mutex_countingProcess->P();
+    processCount++;
+    DEBUG('x', "Incrementation of process = %d \n", processCount);
+    mutex_countingProcess->V();
+    
+
     kernelThread->Start(StartUserProc, NULL);
 
     return 0;
@@ -42,6 +50,7 @@ int doForkExec(const char *filename){
 
 void StartUserProc(void *arg){
     DEBUG('x', "Debug : StartUserProc, Start the function StartUserProc with the kenerl thread : %s  \n", currentThread->getName());
+    
     (void) arg;
 
     currentThread->space->InitRegisters();	// set the initial register values

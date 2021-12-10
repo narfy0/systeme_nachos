@@ -9,4 +9,4 @@
  ../filesys/filesys.h ../filesys/openfile.h ../machine/translate.h \
  ../bin/noff.h ../threads/list.h ../userprog/bitmap.h \
  ../threads/scheduler.h ../machine/interrupt.h ../machine/stats.h \
- ../machine/timer.h
+ ../machine/timer.h ../threads/synch.h

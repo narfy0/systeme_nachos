@@ -62,6 +62,10 @@ extern PostOffice *postOffice;
 #ifdef USER_PROGRAM
 extern ConsoleDriver *consoledriver;
 extern PageProvider *pageProvider;
+
+extern Semaphore *mutex_countingProcess;
+//TODO see if we let the variable in extern
+extern int processCount;
 #endif // USER_PROGRAM
 
 //constant for string buffer max size (action V.3)

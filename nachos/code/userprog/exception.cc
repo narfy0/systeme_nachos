@@ -29,6 +29,7 @@
 #include "consoledriver.h"
 #include "userthread.h"
 #include "userprocess.h" 
+#include "synch.h"
 
 /**
  * Copy a string, char by char, from MIPS world (using "from" address in args)
@@ -239,7 +240,23 @@ ExceptionHandler (ExceptionType which)
 		case SC_Exit:
 		{
 			DEBUG ('s', "SC_Exit : Shutdown, initiated by user program.\n");
-		    interrupt->Powerdown ();
+
+			//decrement process counter
+			mutex_countingProcess->P();
+			processCount--;
+			DEBUG('x', "Decrementation of process = %d \n", processCount);
+			mutex_countingProcess->V();
+
+			//free the process ressources
+			delete currentThread->space;
+			currentThread->space = NULL;
+
+			//check if it's the last process to exit
+			if(processCount == 0){
+				interrupt->Powerdown ();
+			}
+
+			currentThread->Finish();
 		    break;
 		}
 

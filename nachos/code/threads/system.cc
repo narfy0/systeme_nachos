@@ -12,6 +12,10 @@
 #include <malloc.h>
 #endif
 
+#ifdef CHANGED
+#include "synch.h"
+#endif //CHANGED
+
 // This defines *all* of the global data structures used by Nachos.
 // These are all initialized and de-allocated by this file.
 
@@ -37,6 +41,11 @@ Machine *machine;		// user program memory and registers
 
 #ifdef CHANGED
 PageProvider *pageProvider;
+
+// counter of current process
+int processCount;
+// mutex to controll the incrementation and decrementation of running process
+Semaphore *mutex_countingProcess;
 #endif // CHANGED
 
 #ifdef NETWORK
@@ -192,6 +201,10 @@ Initialize (int argc, char **argv)
 
 	#ifdef CHANGED
 	pageProvider = new PageProvider(); //TODO change it 
+
+	processCount = 1;
+	mutex_countingProcess = new Semaphore("Process Counter Mutex", 1);
+
 	#endif // CHANGED
 
 #endif

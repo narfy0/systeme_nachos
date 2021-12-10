@@ -1,0 +1,169 @@
+PageProvider number of available pages = 64
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 0
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 0)
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 0
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 1
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 1)
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 1
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 2
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 2)
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 2
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 3
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 3)
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 3
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 4
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 4)
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 4
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 5
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 5)
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 5
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 6
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 6)
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 6
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 7
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 7)
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 7
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 8
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 8)
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 8
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 9
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 9)
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 9
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 10
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 10)
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 10
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 11
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 11)
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 11
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 12
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 12)
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 12
+Debug : doForkExec, executable value = 0x563b54436f10
+Debug : doForkExec, before addrspace creation  
+PageProvider number of available pages = 51
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 0
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 13)
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 0
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 1
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 14)
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 1
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 2
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 15)
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 2
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 3
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 16)
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 3
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 4
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 17)
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 4
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 5
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 18)
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 5
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 6
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 19)
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 6
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 7
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 20)
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 7
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 8
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 21)
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 8
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 9
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 22)
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 9
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 10
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 23)
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 10
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 11
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 24)
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 11
+Debug : doForkExec, after addrspace creation  
+Debug : doForkExec, new kernel thread created 
+Debug : doForkExec, executable value = 0x563b5444e3a0
+Debug : doForkExec, before addrspace creation  
+PageProvider number of available pages = 39
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 0
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 25)
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 0
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 1
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 26)
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 1
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 2
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 27)
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 2
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 3
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 28)
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 3
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 4
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 29)
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 4
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 5
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 30)
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 5
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 6
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 31)
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 6
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 7
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 32)
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 7
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 8
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 33)
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 8
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 9
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 34)
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 9
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 10
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 35)
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 10
+AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = 11
+PageProvider getEmptyPage : before memeset
+PageProvider getEmptyPage : after memset (returned value = 36)
+AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = 11
+Debug : doForkExec, after addrspace creation  
+Debug : doForkExec, new kernel thread created 
+Decrementation of process = 0 
+Machine going down!
+
+Ticks: total 89, idle 0, system 60, user 29
+Disk I/O: reads 0, writes 0
+Console I/O: reads 0, writes 0
+Paging: faults 0
+Network I/O: packets received 0, sent 0
+
+Cleaning up...
