@@ -294,9 +294,33 @@ AddrSpace::FinishUserThreads(){
 
     //if I am the last, I stop nachos process
     if(threadCount == 0){
-        DEBUG('x', "Debug : do_threadExit powerdown (count = %d)\n", threadCount);
-        
-        interrupt->Powerdown ();
+
+        DEBUG ('s', "SC_Exit : Shutdown, initiated by user program.\n");
+
+        //decrement process counter
+        mutex_countingProcess->P();
+        processCount--;
+        DEBUG('x', "Decrementation of process = %d \n", processCount);
+        mutex_countingProcess->V();
+
+        //free the process ressources
+        delete currentThread->space;
+        currentThread->space = NULL;
+
+        //check if it's the last process to exit
+        if(processCount == 0){
+            interrupt->Powerdown ();
+        }
+
+        currentThread->Finish();
+
+        /*
+        if(processCount == 0){
+            DEBUG('x', "Debug : do_threadExit powerdown (count = %d)\n", threadCount);
+            
+            interrupt->Powerdown ();
+        }
+        */
     }
 
     mutex_countingThread->P(); // To protect thread counting and bitmap clearing from other thread actions
