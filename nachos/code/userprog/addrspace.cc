@@ -114,14 +114,14 @@ AddrSpace::AddrSpace (OpenFile * executable)
     if (numPages > NumPhysPages)
 	    throw std::bad_alloc();
     */
+   //check if enough page 
+   if (numPages > pageProvider->NumAvailPage())
+	    throw std::bad_alloc(); //TODO fix this case
 
     DEBUG ('a', "Initializing address space, num pages %d, total size 0x%x\n",
 	   numPages, size);
     // first, set up the translation 
     pageTable = new TranslationEntry[numPages];
-    
-    //check if enough page
-    ASSERT(pageProvider->NumAvailPage() > numPages);
 
     mutex_reserved_page->P();
     pageProvider->ReservedPage(numPages);
@@ -137,7 +137,9 @@ AddrSpace::AddrSpace (OpenFile * executable)
         DEBUG('x', "AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = %d\n", i);
 
         mutex_reserved_page->P();
-        pageTable[i].physicalPage = pageProvider->GetEmptyPage();	
+        int emptyPageIndex = pageProvider->GetEmptyPage();
+        DEBUG('x', "AddrSpace initialization : pageprovider.getEmptyPage returns : %d\n", emptyPageIndex);
+        pageTable[i].physicalPage = emptyPageIndex;	
         mutex_reserved_page->V();
 
         DEBUG('x', "AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = %d\n", i);

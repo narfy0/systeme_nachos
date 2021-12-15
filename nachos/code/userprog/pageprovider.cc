@@ -22,32 +22,42 @@ PageProvider::~PageProvider ()
 {
     delete physicalPageTable_map;
     physicalPageTable_map = NULL;
+
+    delete mutex_lockReserved;
+    mutex_lockReserved = NULL;
+
+    nbReserved = NULL;
 }
 
 int PageProvider::GetEmptyPage(){
 
     int freePageIndex = -1;
-    int nbAvail = NumAvailPage();
+    //int nbAvail = NumAvailPage();
 
-    if(nbAvail > 0){
+    //if(nbAvail > 0){
 
         //get index of a free page
         freePageIndex = physicalPageTable_map->Find();
 
-        mutex_lockReserved->P();
+        /*
+ 0       mutex_lockReserved->P();
         nbReserved--;
         mutex_lockReserved->V();
+        */
 
         //initialize found page to 0 (thanks to memeset)
         DEBUG('x', "PageProvider getEmptyPage : before memeset\n");
 
         if(freePageIndex != -1){
+            mutex_lockReserved->P();
+            nbReserved--;
+            mutex_lockReserved->V();
             memset(&(machine->mainMemory[freePageIndex * PageSize]), 0, PageSize);
         }
 
         DEBUG('x', "PageProvider getEmptyPage : after memset (returned value = %d)\n", freePageIndex);
 
-    }
+    //}
     
     return freePageIndex;
 }
@@ -55,7 +65,7 @@ int PageProvider::GetEmptyPage(){
 void PageProvider::ReservedPage(int nbToReserved){
     int nbAvail = NumAvailPage();
 
-    ASSERT(nbAvail >= nbToReserved);
+    ASSERT(nbAvail >= nbToReserved); //TODO make that in the caller file, pageProvider dont have to throw exception
 
     mutex_lockReserved->P();
     nbReserved += nbToReserved;
