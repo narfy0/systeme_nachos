@@ -3,5 +3,7 @@
  ../userprog/consoledriver.h ../threads/utility.h ../machine/console.h \
  ../userprog/pageprovider.h ../machine/machine.h ../machine/translate.h \
  ../machine/disk.h ../userprog/bitmap.h ../userprog/../filesys/openfile.h \
- thread.h list.h scheduler.h ../machine/interrupt.h ../threads/list.h \
- ../machine/stats.h ../machine/timer.h
+ ../threads/synch.h ../threads/copyright.h ../threads/thread.h \
+ ../threads/utility.h ../threads/list.h thread.h scheduler.h list.h \
+ ../machine/interrupt.h ../threads/list.h ../machine/stats.h \
+ ../machine/timer.h

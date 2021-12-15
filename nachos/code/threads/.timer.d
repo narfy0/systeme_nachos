@@ -4,7 +4,7 @@
  ../threads/../userprog/consoledriver.h ../machine/console.h \
  ../threads/../userprog/pageprovider.h ../machine/machine.h \
  ../machine/translate.h ../machine/disk.h ../threads/../userprog/bitmap.h \
- ../threads/../userprog/../filesys/openfile.h ../threads/utility.h \
- ../threads/thread.h ../threads/list.h ../threads/scheduler.h \
- ../machine/interrupt.h ../threads/list.h ../machine/stats.h \
- ../machine/timer.h
+ ../threads/../userprog/../filesys/openfile.h ../threads/synch.h \
+ ../threads/thread.h ../threads/utility.h ../threads/list.h \
+ ../threads/scheduler.h ../machine/interrupt.h ../threads/list.h \
+ ../machine/stats.h ../machine/timer.h

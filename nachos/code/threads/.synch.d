@@ -3,5 +3,6 @@
  system.h ../userprog/consoledriver.h ../threads/utility.h \
  ../machine/console.h ../userprog/pageprovider.h ../machine/machine.h \
  ../machine/translate.h ../machine/disk.h ../userprog/bitmap.h \
- ../userprog/../filesys/openfile.h scheduler.h ../machine/interrupt.h \
- ../threads/list.h ../machine/stats.h ../machine/timer.h
+ ../userprog/../filesys/openfile.h ../threads/synch.h scheduler.h \
+ ../machine/interrupt.h ../threads/list.h ../machine/stats.h \
+ ../machine/timer.h
