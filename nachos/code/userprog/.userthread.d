@@ -7,6 +7,6 @@
  ../threads/list.h ../userprog/bitmap.h ../userprog/../filesys/openfile.h \
  addrspace.h ../threads/system.h ../threads/../userprog/consoledriver.h \
  ../machine/console.h ../threads/../userprog/pageprovider.h \
- ../threads/../userprog/bitmap.h ../threads/thread.h \
+ ../threads/../userprog/bitmap.h ../threads/synch.h ../threads/thread.h \
  ../threads/scheduler.h ../machine/interrupt.h ../machine/stats.h \
- ../machine/timer.h ../threads/synch.h
+ ../machine/timer.h

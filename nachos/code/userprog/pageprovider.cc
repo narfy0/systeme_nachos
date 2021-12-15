@@ -3,15 +3,18 @@
 #include "pageprovider.h"
 #include "bitmap.h"
 
-int nbReserved;
-
 //Constructor
 PageProvider::PageProvider ()
 {
     //the bit map which manage physical pages
     physicalPageTable_map = new BitMap(NumPhysPages);
 
+    // mutex to lock setting reserved's page number value
+    mutex_lockReserved = new Semaphore("mutex lock reserved page value", 1);
+
+    mutex_lockReserved->P(); //maybe useless
     nbReserved = 0;
+    mutex_lockReserved->V();
 }
 
 //Destructor
@@ -30,7 +33,10 @@ int PageProvider::GetEmptyPage(){
 
         //get index of a free page
         freePageIndex = physicalPageTable_map->Find();
+
+        mutex_lockReserved->P();
         nbReserved--;
+        mutex_lockReserved->V();
 
         //initialize found page to 0 (thanks to memeset)
         DEBUG('x', "PageProvider getEmptyPage : before memeset\n");
@@ -50,14 +56,14 @@ void PageProvider::ReservedPage(int nbToReserved){
     int nbAvail = NumAvailPage();
 
     ASSERT(nbAvail >= nbToReserved);
+
+    mutex_lockReserved->P();
     nbReserved += nbToReserved;
+    mutex_lockReserved->V();
 
 }
 
 void PageProvider::ReleasePage(int index_physical_page, TranslationEntry *pageTable){
-    //free a page
-    pageTable[index_physical_page].valid = TRUE;
-
     //set the bitamp to notify the page is released
     physicalPageTable_map->Clear(index_physical_page);
 }

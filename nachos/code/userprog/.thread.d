@@ -8,5 +8,5 @@
  ../threads/switch.h ../threads/synch.h ../threads/system.h \
  ../threads/../userprog/consoledriver.h ../machine/console.h \
  ../threads/../userprog/pageprovider.h ../threads/../userprog/bitmap.h \
- ../threads/scheduler.h ../machine/interrupt.h ../machine/stats.h \
- ../machine/timer.h ../machine/valgrind.h
+ ../threads/synch.h ../threads/scheduler.h ../machine/interrupt.h \
+ ../machine/stats.h ../machine/timer.h ../machine/valgrind.h

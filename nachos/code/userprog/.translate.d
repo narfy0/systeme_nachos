@@ -7,6 +7,6 @@
  ../userprog/../filesys/openfile.h ../threads/system.h \
  ../threads/../userprog/consoledriver.h ../machine/console.h \
  ../threads/../userprog/pageprovider.h ../machine/machine.h \
- ../threads/../userprog/bitmap.h ../threads/thread.h ../threads/list.h \
- ../threads/scheduler.h ../machine/interrupt.h ../machine/stats.h \
- ../machine/timer.h
+ ../threads/../userprog/bitmap.h ../threads/synch.h ../threads/thread.h \
+ ../threads/list.h ../threads/scheduler.h ../machine/interrupt.h \
+ ../machine/stats.h ../machine/timer.h

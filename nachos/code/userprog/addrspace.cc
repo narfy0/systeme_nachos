@@ -110,8 +110,10 @@ AddrSpace::AddrSpace (OpenFile * executable)
     // to run anything too big --
     // at least until we have
     // virtual memory
+    /*
     if (numPages > NumPhysPages)
 	    throw std::bad_alloc();
+    */
 
     DEBUG ('a', "Initializing address space, num pages %d, total size 0x%x\n",
 	   numPages, size);
@@ -120,6 +122,7 @@ AddrSpace::AddrSpace (OpenFile * executable)
     
     //check if enough page
     ASSERT(pageProvider->NumAvailPage() > numPages);
+
     mutex_reserved_page->P();
     pageProvider->ReservedPage(numPages);
     mutex_reserved_page->V();
@@ -132,9 +135,11 @@ AddrSpace::AddrSpace (OpenFile * executable)
 
       //Action I.6
         DEBUG('x', "AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = %d\n", i);
+
         mutex_reserved_page->P();
         pageTable[i].physicalPage = pageProvider->GetEmptyPage();	
         mutex_reserved_page->V();
+
         DEBUG('x', "AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = %d\n", i);
         #endif //CHANGED 
 
