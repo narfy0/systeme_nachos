@@ -44,7 +44,7 @@ static void StartUserThread(void *schmurtz){
         machine->Run();
     }
     else{
-        return;
+        
     }
 }
 
@@ -71,31 +71,30 @@ int do_ThreadCreate(int f, int arg){
 }
 
 void do_ThreadExit(){
-    DEBUG('x', "Debug : do_ThreadExit begin \n");
+    DEBUG('x', "Debug : do_ThreadExit begin / processCount = %d  by currentThread = %d\n", processCount, currentThread);
     //currentThread->space->FinishUserThreads();
 
     int threadCount = currentThread->space->GetThreadCount();
+
+
+    DEBUG('x', "Debug : do_ThreadExit begin / processCount = %d  with threadCount = %d\n", processCount, threadCount);
 
     //if I am the last, I stop nachos process
     if(threadCount == 0){
 
         //check if it's the last process to exit
-        DEBUG('x', "DEBUG : before check if it is the last process to ending all / processCount = %d \n", processCount);
+        DEBUG('x', "DEBUG : before check if it is the last process to ending all / processCount = %d  by currentThread = %d\n", processCount, currentThread);
         if(processCount == 0){
             interrupt->Powerdown ();
         } else {
             DEBUG('x', "DEBUG : Finnish last User Thread, before curretnThread->Finnish() / currentThread = %d\n", currentThread);
             //currentThread->Finish();
 
-
-
             //decrement process counter
             mutex_countingProcess->P();
             processCount--;
             DEBUG('x', "Decrementation of process = %d / currentThread = %d\n", processCount, currentThread);
             mutex_countingProcess->V();
-
-
             
             delete currentThread->space;
             currentThread->space = NULL;

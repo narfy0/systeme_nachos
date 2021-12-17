@@ -288,10 +288,11 @@ AddrSpace::AllocateUserStack(){
     
 
     // to get the index of the stack free section (normally it exist thanks to semaphore just before which wait for a section to be freed)
-    index_map = stack_map->Find();
+    int index_check = stack_map->Find();
     DEBUG('x', "DEBUG Allocate a new stack with section %d\n", index_map);
 
-    if(index_map != -1){
+    if(index_check != -1){
+        index_map = index_check;
         // Set location of our new user thread's stack start
         machine->WriteRegister (StackReg, (numPages * PageSize) - (256 * index_map) - 16);
         DEBUG ('a', "Initializing stack register to 0x%x\n", numPages * PageSize - (256 * index_map) - 16);
@@ -365,9 +366,9 @@ AddrSpace::FinishUserThreads(){
     DEBUG('x', "DEBUG FinishUserThreads last step \n");
     */
         mutex_countingThread->P(); // To protect thread counting and bitmap clearing from other thread actions
-
+        DEBUG('x', "DEBUG BitMap.Clear will free the section %d\n", index_map);
         stack_map->Clear(index_map);
-        DEBUG('x', "DEBUG BitMap.Clear free the section %d\n", index_map);
+        
         threadCount--;
 
         mutex_countingThread->V();
