@@ -8,4 +8,4 @@
  ../threads/../userprog/pageprovider.h ../threads/../userprog/bitmap.h \
  ../threads/synch.h ../threads/thread.h ../threads/list.h \
  ../userprog/addrspace.h ../threads/scheduler.h ../machine/interrupt.h \
- ../machine/stats.h ../machine/timer.h
+ ../machine/stats.h ../machine/timer.h threadException.h

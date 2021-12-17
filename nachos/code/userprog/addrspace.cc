@@ -25,6 +25,8 @@
 #ifdef CHANGED
 #include "synch.h"
 #include "bitmap.h"
+
+#include "threadException.h"
 #endif //CHANGED
 
 #ifdef CHANGED
@@ -33,8 +35,6 @@
 int threadCount = 0;
 // mutex to controll the incrementation and decrementation of running threads
 static Semaphore *mutex_countingThread;
-// semaphore to wait stack allocation if already too many user threads allocated
-static Semaphore *waiting_stack_map;
 //mutex to controll the reservation of memory page when use PageProvider
 static Semaphore *mutex_reserved_page  = new Semaphore("page reservation mutex", 1);
 
@@ -191,7 +191,6 @@ AddrSpace::AddrSpace (OpenFile * executable)
 
     // To initialise semaphores
     mutex_countingThread = new Semaphore("thread counter mutex", 1);
-    waiting_stack_map = new Semaphore("stack map waiter", 3);
     
     // a bitmap object to count the free section in stack
     stack_map = new BitMap(4); // 4 = number of user thread creatable and the parent thread
@@ -286,20 +285,26 @@ AddrSpace::AllocateUserStack(){
         return -1; // if a user thread can't be allocated
     }*/
 
-    DEBUG('x', "Debug number of section free %d for the previous thread index %d \n", stack_map->NumClear(), index_map);
-    waiting_stack_map->P();
+    
 
     // to get the index of the stack free section (normally it exist thanks to semaphore just before which wait for a section to be freed)
     index_map = stack_map->Find();
     DEBUG('x', "DEBUG Allocate a new stack with section %d\n", index_map);
-    
-    // Set location of our new user thread's stack start
-    machine->WriteRegister (StackReg, (numPages * PageSize) - (256 * index_map) - 16);
-    DEBUG ('a', "Initializing stack register to 0x%x\n", numPages * PageSize - (256 * index_map) - 16);
-    addr = machine->ReadRegister(StackReg);
 
-    // return the address of the beginning of the user thread's stack
-    return addr;
+    if(index_map != -1){
+        // Set location of our new user thread's stack start
+        machine->WriteRegister (StackReg, (numPages * PageSize) - (256 * index_map) - 16);
+        DEBUG ('a', "Initializing stack register to 0x%x\n", numPages * PageSize - (256 * index_map) - 16);
+        addr = machine->ReadRegister(StackReg);
+
+        // return the address of the beginning of the user thread's stack
+        return addr;
+    }
+    else{
+        return -1;
+    }
+    
+    
 }
 
 /*
@@ -366,8 +371,6 @@ AddrSpace::FinishUserThreads(){
         threadCount--;
 
         mutex_countingThread->V();
-
-        waiting_stack_map->V();
 }   
 
 // From TD3

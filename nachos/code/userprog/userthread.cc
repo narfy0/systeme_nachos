@@ -38,9 +38,14 @@ static void StartUserThread(void *schmurtz){
     //To allocate the user stack in the address space
     int beginAddrStack = currentThread->space->AllocateUserStack();
     DEBUG('x', "Debug : StartUserThread, beginAddrStack %d\n", beginAddrStack);
-
-    // To run the wanted function by the thread 
-    machine->Run();
+    
+    if(beginAddrStack != -1){
+        // To run the wanted function by the thread 
+        machine->Run();
+    }
+    else{
+        return;
+    }
 }
 
 /*

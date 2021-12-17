@@ -5,6 +5,7 @@
 #include "addrspace.h"
 #include "system.h"
 #include "synch.h"
+#include "threadException.h"
 
 int doForkExec(const char *filename){
 
@@ -23,8 +24,15 @@ int doForkExec(const char *filename){
 
     DEBUG('x', "Debug : doForkExec, before addrspace creation  \n");
     //create a new address space
-    space = new AddrSpace (executable);
-    DEBUG('x', "Debug : doForkExec, after addrspace creation  \n");
+    try{
+      space = new AddrSpace (executable);
+      DEBUG('x', "Debug : doForkExec, after addrspace creation  \n");
+    }catch(threadException e){
+      delete executable;
+
+      return -1;
+    }
+    
     
     
     //create a kernel thread
