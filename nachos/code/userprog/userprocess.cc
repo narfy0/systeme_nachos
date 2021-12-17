@@ -24,11 +24,17 @@ int doForkExec(const char *filename){
 
     DEBUG('x', "Debug : doForkExec, before addrspace creation  \n");
     //create a new address space
+      int savedIndex = currentThread->getIndex();
+
     try{
       space = new AddrSpace (executable);
+      currentThread->setIndex(savedIndex); // to restore currentThread index in stack
       DEBUG('x', "Debug : doForkExec, after addrspace creation  \n");
+
     }catch(threadException e){
+      DEBUG('x', "ERROR \n");
       delete executable;
+      currentThread->setIndex(savedIndex); // to restore currentThread index in stack
 
       return -1;
     }
@@ -40,6 +46,8 @@ int doForkExec(const char *filename){
     DEBUG('x', "Debug : doForkExec, new kernel thread created \n");
     //pass the executable space to the kernel thread
     kernelThread->space = space;
+    //kernelThread->setIndex(kernelThread->space->FindIndexStack());
+    kernelThread->setIndex(0);
 
     // close file
     delete executable;

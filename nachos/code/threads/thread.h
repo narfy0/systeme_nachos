@@ -91,6 +91,12 @@ class Thread:public dontcopythis
     // must not be running when delete 
     // is called
 
+    #ifdef CHANGED
+    int getIndex();
+    void setIndex(int val);
+    int index_map;
+    #endif // CHANGED
+
     // basic thread operations
 
     void Start (VoidFunctionPtr func, void *arg);	// Make thread run (*func)(arg)

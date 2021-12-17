@@ -202,7 +202,7 @@ Initialize (int argc, char **argv)
 	#ifdef CHANGED
 	pageProvider = new PageProvider(); //TODO change it 
 
-	processCount = 0;
+	processCount = 1;
 	mutex_countingProcess = new Semaphore("Process Counter Mutex", 1);
 
 	#endif // CHANGED

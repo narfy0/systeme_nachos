@@ -44,7 +44,7 @@ static void StartUserThread(void *schmurtz){
         machine->Run();
     }
     else{
-        
+        //currentThread->Finish();
     }
 }
 
@@ -52,8 +52,15 @@ static void StartUserThread(void *schmurtz){
  To create a user thread
 */
 int do_ThreadCreate(int f, int arg){
-    DEBUG('x', "Debug : do_ThreadCreate, f = %d\n", f);
     
+    
+    if(currentThread->space->isFull() == 1){
+        DEBUG('x', "Debug : do_ThreadCreateend because stack is full : %d\n", arg  -'a');
+        return -1;
+    }
+
+    DEBUG('x', "Debug : do_ThreadCreate, f = %d\n", f);
+
     Thread *newThread;
     Schmurtz *schmurtz;
     
@@ -65,6 +72,7 @@ int do_ThreadCreate(int f, int arg){
     
     // To initialise user thread's address space as the same than parent thread
     newThread->space = currentThread->space; //here, before newThread->Start, currentThread is the parent thread
+    newThread->setIndex(currentThread->space->FindIndexStack());
     newThread->Start(StartUserThread, schmurtz);
     
     return 0;
@@ -80,32 +88,30 @@ void do_ThreadExit(){
     DEBUG('x', "Debug : do_ThreadExit begin / processCount = %d  with threadCount = %d\n", processCount, threadCount);
 
     //if I am the last, I stop nachos process
-    if(threadCount == 0){
+    if(threadCount == 1){
 
         //check if it's the last process to exit
         DEBUG('x', "DEBUG : before check if it is the last process to ending all / processCount = %d  by currentThread = %d\n", processCount, currentThread);
+        
+        //decrement process counter
+        mutex_countingProcess->P();
+        processCount--;
+        DEBUG('x', "Decrementation of process = %d / currentThread = %d\n", processCount, currentThread);
+        mutex_countingProcess->V();
+
         if(processCount == 0){
             interrupt->Powerdown ();
         } else {
-            DEBUG('x', "DEBUG : Finnish last User Thread, before curretnThread->Finnish() / currentThread = %d\n", currentThread);
-            //currentThread->Finish();
+            DEBUG('x', "DEBUG : Finnish last User Thread, before curretnThread->Finnish() / currentThread = %d\n", currentThread);     
 
-            //decrement process counter
-            mutex_countingProcess->P();
-            processCount--;
-            DEBUG('x', "Decrementation of process = %d / currentThread = %d\n", processCount, currentThread);
-            mutex_countingProcess->V();
-            
+            //currentThread->space->FinishUserThreads();
+
             delete currentThread->space;
             currentThread->space = NULL;
             
-
             currentThread->Finish();
             
         }
-
-        
-
         /*
         if(processCount == 0){
             DEBUG('x', "Debug : do_threadExit powerdown (count = %d)\n", threadCount);
@@ -114,25 +120,13 @@ void do_ThreadExit(){
         }
         */
     } else {
-
-        /*
-        mutex_countingThread->P(); // To protect thread counting and bitmap clearing from other thread actions
-
-        stack_map->Clear(index_map);
-        DEBUG('x', "DEBUG BitMap.Clear free the section %d\n", index_map);
-        threadCount--;
-
-        mutex_countingThread->V();
-
-        waiting_stack_map->V(); // to notify that a thread is finnished ( and awake a new one if it is waiting to be allocated )
-        */
        currentThread->space->FinishUserThreads();
        currentThread->Finish();
     }
      
     DEBUG('x', "DEBUG FinishUserThreads last step \n");
 
-    //currentThread->Finish();
+
     
 }
 

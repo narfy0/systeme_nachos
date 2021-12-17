@@ -49,6 +49,10 @@ class AddrSpace:public dontcopythis
 
     int GetThreadCount();
 
+    int isFull();
+
+    int FindIndexStack();
+
     #endif //CHANGED
 
     void SaveState ();		// Save/restore address space-specific

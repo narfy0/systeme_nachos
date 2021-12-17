@@ -73,6 +73,18 @@ Thread::Thread (const char *threadName)
     ThreadList.Append(this);
 }
 
+#ifdef CHANGED
+int Thread::getIndex(){
+    return index_map;
+}
+
+void Thread::setIndex(int val){
+    index_map = val;
+}
+
+
+#endif //CHANGED
+
 //----------------------------------------------------------------------
 // Thread::SetMain
 //      Configures the thread as representing the main thread, i.e. the thread

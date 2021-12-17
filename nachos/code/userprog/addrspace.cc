@@ -31,8 +31,6 @@
 
 #ifdef CHANGED
 
-// variable to count user thread
-int threadCount = 0;
 // mutex to controll the incrementation and decrementation of running threads
 static Semaphore *mutex_countingThread;
 //mutex to controll the reservation of memory page when use PageProvider
@@ -115,8 +113,9 @@ AddrSpace::AddrSpace (OpenFile * executable)
 	    throw std::bad_alloc();
     */
    //check if enough page 
-   if (numPages > pageProvider->NumAvailPage())
-	    throw std::bad_alloc(); //TODO fix this case
+    ASSERT(numPages <= pageProvider->NumAvailPage());
+    //if (numPages > pageProvider->NumAvailPage())
+	//    throw std::bad_alloc(); //TODO fix this case
 
     DEBUG ('a', "Initializing address space, num pages %d, total size 0x%x\n",
 	   numPages, size);
@@ -198,6 +197,7 @@ AddrSpace::AddrSpace (OpenFile * executable)
     // mark the section of the parent thread used
     stack_map->Mark(0);
     index_map = 0;
+    currentThread->setIndex(0);
     
     #endif //CHANGED
 }
@@ -261,6 +261,10 @@ AddrSpace::InitRegisters ()
 
 #ifdef CHANGED
 
+int AddrSpace::isFull(){
+    return stack_map->NumClear() + 1;
+}
+
 /*
  To allocate the user stack in the address space 
  and check to wait for free stack section if too many user thread are already allocated
@@ -270,11 +274,7 @@ AddrSpace::AllocateUserStack(){
 
     int addr;
 
-    mutex_countingThread->P(); // to protect thread counting
-    // increment the counter of created threads
-    threadCount++;
-    DEBUG('x', "Incrementation of threads = %d \n", threadCount);
-    mutex_countingThread->V();
+   
 
     /* // Old version of stack section allocation (replaced in action II.4)
     waiting_stack_map->P();
@@ -288,11 +288,21 @@ AddrSpace::AllocateUserStack(){
     
 
     // to get the index of the stack free section (normally it exist thanks to semaphore just before which wait for a section to be freed)
-    int index_check = stack_map->Find();
+    //int index_check = stack_map->Find();
+    int index_check = currentThread->getIndex();
+
+
     DEBUG('x', "DEBUG Allocate a new stack with section %d\n", index_map);
 
     if(index_check != -1){
         index_map = index_check;
+
+        //mutex_countingThread->P(); // to protect thread counting
+        // increment the counter of created threads
+        // threadCount++;
+        //DEBUG('x', "Incrementation of threads = %d \n", threadCount);
+        //mutex_countingThread->V();
+
         // Set location of our new user thread's stack start
         machine->WriteRegister (StackReg, (numPages * PageSize) - (256 * index_map) - 16);
         DEBUG ('a', "Initializing stack register to 0x%x\n", numPages * PageSize - (256 * index_map) - 16);
@@ -306,6 +316,10 @@ AddrSpace::AllocateUserStack(){
     }
     
     
+}
+
+int AddrSpace::FindIndexStack(){
+    return stack_map->Find();
 }
 
 /*
@@ -365,20 +379,21 @@ AddrSpace::FinishUserThreads(){
      
     DEBUG('x', "DEBUG FinishUserThreads last step \n");
     */
-        mutex_countingThread->P(); // To protect thread counting and bitmap clearing from other thread actions
-        DEBUG('x', "DEBUG BitMap.Clear will free the section %d\n", index_map);
-        stack_map->Clear(index_map);
+    mutex_countingThread->P(); // To protect thread counting and bitmap clearing from other thread actions
+    index_map = currentThread->getIndex();
+    DEBUG('x', "DEBUG BitMap.Clear will free the section %d\n", index_map);
+    stack_map->Clear(index_map);
         
-        threadCount--;
+    //threadCount--;
 
-        mutex_countingThread->V();
+    mutex_countingThread->V();
 }   
 
 // From TD3
 
 int AddrSpace::GetThreadCount(){
-    return threadCount;
-    //return stack_map->NumClear();
+    //return threadCount;
+    return 4 - stack_map->NumClear();
 }
 
 #endif //CHANGED
@@ -525,4 +540,4 @@ void ReadAtVirtual(OpenFile *executable, int virtualaddr, int numBytes, int posi
     machine->currentPageTable = tmp_pageTable;
     machine->currentPageTableSize = tmp_numPages;
 }
-#endif // CHANGED
+#endif // CHANGED3
