@@ -9,10 +9,13 @@
 #define SYSTEM_H
 
 #ifdef CHANGED
+
 #include "../userprog/consoledriver.h"
 #include "../userprog/pageprovider.h"
+// We set the include path like that beacause it would causes errors
 //#include "consoledriver.h"
 //#include "pageprovider.h"
+
 #endif // CHANGED
 
 #include "copyright.h"
@@ -59,6 +62,7 @@ extern PostOffice *postOffice;
 #endif
 
 #ifdef CHANGED
+
 #ifdef USER_PROGRAM
 extern ConsoleDriver *consoledriver;
 extern PageProvider *pageProvider;

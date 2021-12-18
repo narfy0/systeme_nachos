@@ -92,9 +92,16 @@ class Thread:public dontcopythis
     // is called
 
     #ifdef CHANGED
+
+    //Get this thread's index in the stack (more precisly in the bitmap used to manage address space stack)
     int getIndex();
+    
+    //Set this thread's index in the stack (more precisly in the bitmap used to manage address space stack)
     void setIndex(int val);
+    
+    //This thread's index in the stack (more precisly in the bitmap used to manage address space stack)
     int index_map;
+    
     #endif // CHANGED
 
     // basic thread operations

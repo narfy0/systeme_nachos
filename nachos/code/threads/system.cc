@@ -46,6 +46,7 @@ PageProvider *pageProvider;
 int processCount;
 // mutex to controll the incrementation and decrementation of running process
 Semaphore *mutex_countingProcess;
+
 #endif // CHANGED
 
 #ifdef NETWORK
@@ -53,9 +54,11 @@ PostOffice *postOffice;
 #endif
 
 #ifdef CHANGED
+
 #ifdef USER_PROGRAM
 ConsoleDriver *consoledriver;
 #endif // USER_PROGRAM
+
 #endif // CHANGED
 
 
@@ -200,7 +203,8 @@ Initialize (int argc, char **argv)
     machine = new Machine (debugUserProg);	// this must come first
 
 	#ifdef CHANGED
-	pageProvider = new PageProvider(); //TODO change it 
+	
+	pageProvider = new PageProvider();
 
 	processCount = 1;
 	mutex_countingProcess = new Semaphore("Process Counter Mutex", 1);
@@ -255,6 +259,7 @@ Cleanup ()
 
 #ifdef USER_PROGRAM
 	#ifdef CHANGED //to clean the driver (IV.1)
+
 	if(consoledriver){
 		delete consoledriver;
 		consoledriver = NULL;
@@ -264,6 +269,7 @@ Cleanup ()
 		delete pageProvider;
 		pageProvider = NULL;
 	}
+
 	#endif // CHANGED
 
     if (machine) {
