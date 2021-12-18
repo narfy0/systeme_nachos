@@ -113,8 +113,11 @@ AddrSpace::AddrSpace (OpenFile * executable)
     if (numPages > NumPhysPages)
 	    throw std::bad_alloc();
     */
-   //check if enough page 
-    ASSERT(numPages <= pageProvider->NumAvailPage());
+    //check if enough page 
+    //ASSERT(numPages <= pageProvider->NumAvailPage());
+    if(numPages > pageProvider->NumAvailPage()){
+        throw threadException();
+    }
 
     DEBUG ('a', "Initializing address space, num pages %d, total size 0x%x\n", numPages, size);
 
