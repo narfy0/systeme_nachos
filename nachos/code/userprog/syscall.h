@@ -144,31 +144,41 @@ void Yield ();
 
 #ifdef CHANGED
 
-/* To do I/O action in order to print character
+/*
+    To do I/O action in order to print character
  */
 void PutChar(char c);
 
-/* To do I/O action in order to print string
+/* 
+    To do I/O action in order to print string
  */
 void PutString(const char s[]);
 
-/* To do I/O action in order to read character from stream
+/* 
+    To do I/O action in order to read character from stream
  */
 int GetChar(); 
 
-/* To do I/O action in order to read a string from stream
+/* 
+    To do I/O action in order to read a string from stream
  */
 void GetString(char *s, int n);
 
 
-/*To create a user thread
+/*
+    To create a user thread
 */
-//int do_ThreadCreate(int f, int arg);
 int ThreadCreate(void f(void *arg), void* arg);
 
-/*To kill a thread
+/*
+    To kill a thread
 */
 void ThreadExit(void);
+
+/*
+    To fork and automatically exec the file "s"
+*/
+int ForkExec(const char *s);
 
 #endif // CHANGED
 

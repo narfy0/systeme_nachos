@@ -241,7 +241,8 @@ ExceptionHandler (ExceptionType which)
 		{
 			DEBUG ('s', "SC_Exit : Shutdown, initiated by user program.\n");
 
-/*
+			/* Old version of our code, deprecated now because we choose to use ThreadExit()
+
 			//decrement process counter
 			mutex_countingProcess->P();
 			processCount--;
@@ -260,6 +261,7 @@ ExceptionHandler (ExceptionType which)
 			currentThread->Finish();
 			*/
 			//interrupt->Powerdown ();
+
 		    break;
 		}
 
@@ -283,7 +285,6 @@ ExceptionHandler (ExceptionType which)
 
 			int x = doForkExec(stringAddr);
 
-			//TODO change 
 			machine->WriteRegister (2, x);
 
 		    break;
