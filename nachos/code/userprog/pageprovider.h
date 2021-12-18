@@ -4,8 +4,6 @@
 #define PAGEPROVIDER_H
 
 #include "machine.h"
-//TODO see if we keep it 
-//#include "system.h"
 #include "bitmap.h"
 #include "synch.h"
 
@@ -19,12 +17,25 @@ class PageProvider:public dontcopythis
     PageProvider ();	// Create a page provider
     ~PageProvider ();	// De-allocate a page provider
 
+    /*
+      Get the index of the first free page found
+      As a side effect, it initializes content  of the physical pageto 0
+    */
     int GetEmptyPage();
 
+    /*
+      Free a page (normally get by GetEmptyPage)
+    */
     void ReleasePage(int index_physical_page, TranslationEntry *pageTable);
 
+    /*
+      Get the number of available page
+    */
     int NumAvailPage();
 
+    /*
+      To reserve a number of page in order to avoid allocation of too many pages
+    */
     void ReservedPage(int nbToReserved);
 
 
@@ -40,8 +51,7 @@ class PageProvider:public dontcopythis
 
     // mutex to lock setting reserved's page number value
     Semaphore *mutex_lockReserved;
-
-    
+        
 };
 
 #endif // PAGEPROVIDER_H

@@ -32,40 +32,30 @@ PageProvider::~PageProvider ()
 int PageProvider::GetEmptyPage(){
 
     int freePageIndex = -1;
-    //int nbAvail = NumAvailPage();
+    
+    freePageIndex = physicalPageTable_map->Find();
 
-    //if(nbAvail > 0){
+    //DEBUG('x', "PageProvider getEmptyPage : before memeset\n");
+    if(freePageIndex != -1){ // if a free page exist 
 
-        //get index of a free page
-        freePageIndex = physicalPageTable_map->Find();
-
-        /*
- 0       mutex_lockReserved->P();
+        mutex_lockReserved->P();
         nbReserved--;
         mutex_lockReserved->V();
-        */
 
         //initialize found page to 0 (thanks to memeset)
-        //DEBUG('x', "PageProvider getEmptyPage : before memeset\n");
+        memset(&(machine->mainMemory[freePageIndex * PageSize]), 0, PageSize);
+    }
 
-        if(freePageIndex != -1){
-            mutex_lockReserved->P();
-            nbReserved--;
-            mutex_lockReserved->V();
-            memset(&(machine->mainMemory[freePageIndex * PageSize]), 0, PageSize);
-        }
+    //DEBUG('x', "PageProvider getEmptyPage : after memset (returned value = %d)\n", freePageIndex);
 
-        //DEBUG('x', "PageProvider getEmptyPage : after memset (returned value = %d)\n", freePageIndex);
-
-    //}
-    
     return freePageIndex;
 }
 
 void PageProvider::ReservedPage(int nbToReserved){
     int nbAvail = NumAvailPage();
 
-    ASSERT(nbAvail >= nbToReserved); //TODO make that in the caller file, pageProvider dont have to throw exception
+    //check if there is enough page to reserve this number
+    ASSERT(nbAvail >= nbToReserved);
 
     mutex_lockReserved->P();
     nbReserved += nbToReserved;
@@ -80,12 +70,10 @@ void PageProvider::ReleasePage(int index_physical_page, TranslationEntry *pageTa
 
 int PageProvider::NumAvailPage(){
     //get number of avaible free page reading the bitmap
-    int nbFreePage = physicalPageTable_map->NumClear(); // - nulber of reserved page
+    int nbFreePage = physicalPageTable_map->NumClear();
 
     //DEBUG('x', "PageProvider number of available pages = %d\n", nbFreePage);
     return nbFreePage - nbReserved;
 }
-
-//method to reserve a page
 
 #endif //CHANGED
