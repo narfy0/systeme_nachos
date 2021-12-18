@@ -15,15 +15,16 @@ main()
     s[5]= '\0';
 
     PutString(s);
-/*
-    PutChar('a');
-    PutChar('b');
-    PutChar('c');
-    PutChar('d');
-    PutChar('e');
-    PutChar('f');
-    PutChar('g');
-*/
+
+    // PutChar('a');
+    // PutChar('b');
+    // PutChar('c');
+    // PutChar('d');
+    // PutChar('e');
+    // PutChar('f');
+    // PutChar('g');
+
+    ThreadExit();
 }
 
 #endif //CHANGED
