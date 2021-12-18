@@ -23,13 +23,11 @@
 #include "new"
 
 #ifdef CHANGED
+
 #include "synch.h"
 #include "bitmap.h"
 
 #include "threadException.h"
-#endif //CHANGED
-
-#ifdef CHANGED
 
 // mutex to controll the incrementation and decrementation of running threads
 static Semaphore *mutex_countingThread;
@@ -44,6 +42,7 @@ static Semaphore *mutex_reserved_page  = new Semaphore("page reservation mutex",
  Declared here but implemants at the end of the file in order to make it cleaner for us
 */
 void ReadAtVirtual(OpenFile *executable, int virtualaddr, int numBytes, int position, TranslationEntry *pageTable, unsigned numPages);
+
 #endif //CHANGED
 
 
@@ -104,6 +103,8 @@ AddrSpace::AddrSpace (OpenFile * executable)
     numPages = divRoundUp (size, PageSize);
     size = numPages * PageSize;
 
+    #ifdef CHANGED
+
     // check we're not trying
     // to run anything too big --
     // at least until we have
@@ -114,31 +115,30 @@ AddrSpace::AddrSpace (OpenFile * executable)
     */
    //check if enough page 
     ASSERT(numPages <= pageProvider->NumAvailPage());
-    //if (numPages > pageProvider->NumAvailPage())
-	//    throw std::bad_alloc(); //TODO fix this case
 
-    DEBUG ('a', "Initializing address space, num pages %d, total size 0x%x\n",
-	   numPages, size);
+    DEBUG ('a', "Initializing address space, num pages %d, total size 0x%x\n", numPages, size);
+
     // first, set up the translation 
     pageTable = new TranslationEntry[numPages];
 
+    //To reserved page in the page provider which will be allocated
     mutex_reserved_page->P();
     pageProvider->ReservedPage(numPages);
     mutex_reserved_page->V();
     
     for (i = 0; i < numPages; i++)
     {
-        #ifdef CHANGED
 	  //Action I.4
         //pageTable[i].physicalPage = i + 1;	// for now, phys page # = virtual page #
 
       //Action I.6
         //DEBUG('x', "AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = %d\n", i);
-
         mutex_reserved_page->P();
+
         int emptyPageIndex = pageProvider->GetEmptyPage();
         //DEBUG('x', "AddrSpace initialization : pageprovider.getEmptyPage returns : %d\n", emptyPageIndex);
         pageTable[i].physicalPage = emptyPageIndex;	
+
         mutex_reserved_page->V();
 
         //DEBUG('x', "AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = %d\n", i);
@@ -155,26 +155,30 @@ AddrSpace::AddrSpace (OpenFile * executable)
 // then, copy in the code and data segments into memory
     if (noffH.code.size > 0)
       {
-	  DEBUG ('a', "Initializing code segment, at 0x%x, size 0x%x\n",
-		 noffH.code.virtualAddr, noffH.code.size);
-	  //executable->ReadAt (&(machine->mainMemory[noffH.code.virtualAddr]),
-	  //		      noffH.code.size, noffH.code.inFileAddr);
+	    DEBUG ('a', "Initializing code segment, at 0x%x, size 0x%x\n", noffH.code.virtualAddr, noffH.code.size);
+
         #ifdef CHANGED
+        //executable->ReadAt (&(machine->mainMemory[noffH.code.virtualAddr]),
+        //		      noffH.code.size, noffH.code.inFileAddr);
         //TranslationEntry *virtualPageTable = new TranslationEntry[numPages];        
         ReadAtVirtual(executable, noffH.code.virtualAddr, noffH.code.size, noffH.code.inFileAddr, pageTable, numPages);
+        
         #endif //CHANGED 
     }
     if (noffH.initData.size > 0)
       {
-	  DEBUG ('a', "Initializing data segment, at 0x%x, size 0x%x\n",
+	    DEBUG ('a', "Initializing data segment, at 0x%x, size 0x%x\n",
 		 noffH.initData.virtualAddr, noffH.initData.size);
-	  //executable->ReadAt (&
+
+        #ifdef CHANGED 
+
+	    //executable->ReadAt (&
 		//	      (machine->mainMemory
 		//	       [noffH.initData.virtualAddr]),
 		//	      noffH.initData.size, noffH.initData.inFileAddr);
-        #ifdef CHANGED
         //TranslationEntry *virtualPageTable = new TranslationEntry[numPages];        
         ReadAtVirtual(executable, noffH.initData.virtualAddr, noffH.initData.size, noffH.initData.inFileAddr, pageTable, numPages);
+        
         #endif //CHANGED
       }
 
@@ -192,12 +196,14 @@ AddrSpace::AddrSpace (OpenFile * executable)
     mutex_countingThread = new Semaphore("thread counter mutex", 1);
     
     // a bitmap object to count the free section in stack
-    stack_map = new BitMap(4); // 4 = number of user thread creatable and the parent thread
+    stack_map = new BitMap(4); // 4 = number of user thread creatable + the parent thread
 
     // mark the section of the parent thread used
     stack_map->Mark(0);
     index_map = 0;
-    currentThread->setIndex(0);
+
+    //set the address space's stack index for the current thread
+    currentThread->setIndex(0); 
     
     #endif //CHANGED
 }
@@ -210,12 +216,12 @@ AddrSpace::AddrSpace (OpenFile * executable)
 AddrSpace::~AddrSpace () // we will use pageProvider.releasePage()
 {
     #ifdef CHANGED
+
     for (unsigned int i = 0; i < numPages; i++)
     {
-        //if(pageTable[i].valid == FALSE){
-            pageProvider->ReleasePage(i, pageTable);
-        //}
+        pageProvider->ReleasePage(i, pageTable);
     }
+
     #endif
 
     delete [] pageTable;
@@ -259,20 +265,22 @@ AddrSpace::InitRegisters ()
 
 #ifdef CHANGED
 
+/*
+    To check if the stack is full 
+        return 1 if the stack is full and other number else
+*/
 int AddrSpace::isFull(){
     return stack_map->NumClear() + 1;
 }
 
 /*
- To allocate the user stack in the address space 
- and check to wait for free stack section if too many user thread are already allocated
+    To allocate the user stack in the address space 
+    and check to wait for free stack section if too many user thread are already allocated
 */
 int
 AddrSpace::AllocateUserStack(){
 
     int addr;
-
-   
 
     /* // Old version of stack section allocation (replaced in action II.4)
     waiting_stack_map->P();
@@ -283,39 +291,27 @@ AddrSpace::AllocateUserStack(){
         return -1; // if a user thread can't be allocated
     }*/
 
-    
-
     // to get the index of the stack free section (normally it exist thanks to semaphore just before which wait for a section to be freed)
-    //int index_check = stack_map->Find();
     int index_check = currentThread->getIndex();
-
 
     //DEBUG('x', "DEBUG Allocate a new stack with section %d\n", index_map);
 
-    if(index_check != -1){
+    if(index_check != -1){ // if the index is correct SO if allocatiob is possible
         index_map = index_check;
-
-        //mutex_countingThread->P(); // to protect thread counting
-        // increment the counter of created threads
-        // threadCount++;
-        //DEBUG('x', "Incrementation of threads = %d \n", threadCount);
-        //mutex_countingThread->V();
-
-        // Set location of our new user thread's stack start
-        //machine->WriteRegister (StackReg, (numPages * PageSize) - (256 * index_map) - 16);
-        //DEBUG ('a', "Initializing stack register to 0x%x\n", numPages * PageSize - (256 * index_map) - 16);
-       // addr = machine->ReadRegister(StackReg);
-
-        // return the address of the beginning of the user thread's stack
         return (numPages * PageSize) - (256 * index_map) - 16;
-    }
-    else{
+    
+    } else { //if the allocation is not possible
         return -1;
     }
     
-    
 }
 
+/*
+    Return the number of the first free index in the stack
+      As a side effect, set this index as marked/used
+      (In other words, find and allocate a page.)
+      If no index are clear, return -1.
+*/
 int AddrSpace::FindIndexStack(){
     return stack_map->Find();
 }
@@ -323,9 +319,10 @@ int AddrSpace::FindIndexStack(){
 /*
  To finish a user thread, check if it is the last to do it and free stack section in the Bitmap
 */
-void 
-AddrSpace::FinishUserThreads(){
+void AddrSpace::FinishUserThreads(){
+
     mutex_countingThread->P(); // To protect thread counting and bitmap clearing from other thread actions
+
     index_map = currentThread->getIndex();
     DEBUG('x', "DEBUG BitMap.Clear will free the section %d, map %p %p \n", index_map, stack_map, mutex_countingThread);
     stack_map->Clear(index_map);
@@ -335,8 +332,10 @@ AddrSpace::FinishUserThreads(){
 
 // From TD3
 
+/*
+    To get the number of thread running
+*/
 int AddrSpace::GetThreadCount(){
-    //return threadCount;
     return 4 - stack_map->NumClear();
 }
 
@@ -460,7 +459,7 @@ AddrSpace::RestoreState ()
 
 #ifdef CHANGED
 //FROM TD3
-//TODO change its
+
 /*
  Read numBytes octets from postion in executable
  And write in virtual addr space define by page table "pageTable" size of "numPages"
@@ -484,4 +483,5 @@ void ReadAtVirtual(OpenFile *executable, int virtualaddr, int numBytes, int posi
     machine->currentPageTable = tmp_pageTable;
     machine->currentPageTableSize = tmp_numPages;
 }
+
 #endif // CHANGED3

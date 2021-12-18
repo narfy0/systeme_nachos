@@ -42,11 +42,12 @@ class AddrSpace:public dontcopythis
     // before jumping to user code
 
     #ifdef CHANGED
-    // for td2
+    //from td2
     int AllocateUserStack();
 
     void FinishUserThreads();
 
+    //from td3
     int GetThreadCount();
 
     int isFull();
@@ -71,10 +72,12 @@ class AddrSpace:public dontcopythis
     unsigned int numPages;	// Number of pages in the page table
 
     #ifdef CHANGED
+
     // the table of accessible section in stack
     BitMap *stack_map;
     // current addrspaces's index in free section in stack
     int index_map;
+    
     #endif //CHANGED
 };
 
