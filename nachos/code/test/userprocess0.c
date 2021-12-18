@@ -21,8 +21,8 @@ main()
     //testActionUserPages0();
 
     //test action II.3
-    testActionUserPages1();
-    //testActionUserPages1_manyThreads();
+    //testActionUserPages1();
+    testActionUserPages1_manyThreads();
 
     //from action II.1
     //while(1);

@@ -32,6 +32,7 @@
 // mutex to controll the incrementation and decrementation of running threads
 static Semaphore *mutex_countingThread;
 //mutex to controll the reservation of memory page when use PageProvider
+//initialize here because it is used in the "constructor"
 static Semaphore *mutex_reserved_page  = new Semaphore("page reservation mutex", 1);
 
 //FROM TD3

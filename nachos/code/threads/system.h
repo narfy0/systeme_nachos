@@ -68,7 +68,6 @@ extern ConsoleDriver *consoledriver;
 extern PageProvider *pageProvider;
 
 extern Semaphore *mutex_countingProcess;
-//TODO see if we let the variable in extern
 extern int processCount;
 #endif // USER_PROGRAM
 
