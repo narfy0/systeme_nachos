@@ -41,20 +41,14 @@ static void StartUserThread(void *schmurtz){
     DEBUG('x', "Debug : StartUserThread, beginAddrStack %d\n", beginAddrStack);
     
     free(schmurtz);
-    //if(beginAddrStack != -1){
-        // To run the wanted function by the thread 
-        machine->Run();
-    //}
-    //else{
-        //currentThread->Finish();
-    //}
+    
+    machine->Run();
 }
 
 /*
  To create a user thread
 */
 int do_ThreadCreate(int f, int arg){
-    
     
     if(currentThread->space->isFull() == 1){
         DEBUG('x', "Debug : do_ThreadCreateend because stack is full : %d\n", arg  -'a');
@@ -81,19 +75,16 @@ int do_ThreadCreate(int f, int arg){
 }
 
 void do_ThreadExit(){
-    DEBUG('x', "Debug : do_ThreadExit begin / processCount = %d  by currentThread = %d\n", processCount, currentThread);
-    //currentThread->space->FinishUserThreads();
-
     int threadCount = currentThread->space->GetThreadCount();
 
+    DEBUG('x', "Debug : do_ThreadExit begin / processCount = %d, currentThread = %d, threadCount = %d\n",
+         processCount, currentThread, threadCount);
 
-    DEBUG('x', "Debug : do_ThreadExit begin / processCount = %d  with threadCount = %d\n", processCount, threadCount);
-
-    //if I am the last, I stop nachos process
+    //if I am the last thread
     if(threadCount == 1){
 
         //check if it's the last process to exit
-        DEBUG('x', "DEBUG : before check if it is the last process to ending all / processCount = %d  by currentThread = %d\n", processCount, currentThread);
+        //DEBUG('x', "DEBUG : before check if it is the last process to ending all / processCount = %d  by currentThread = %d\n", processCount, currentThread);
         
         //decrement process counter
         mutex_countingProcess->P();
@@ -101,28 +92,22 @@ void do_ThreadExit(){
         DEBUG('x', "Decrementation of process = %d / currentThread = %d\n", processCount, currentThread);
         mutex_countingProcess->V();
 
-        if(processCount == 0){
+        if(processCount == 0){ //if I'am the last process
             interrupt->Powerdown ();
-        } else {
-            DEBUG('x', "DEBUG : Finnish last User Thread, before curretnThread->Finnish() / currentThread = %d\n", currentThread);     
 
-            //currentThread->space->FinishUserThreads();
+        } else { // if I'm the last thread of my process but not the last process
+            //DEBUG('x', "DEBUG : Finnish last User Thread, before curretnThread->Finnish() / currentThread = %d\n", currentThread);     
 
             delete currentThread->space;
             currentThread->space = NULL;
             
             currentThread->Finish();
-            
         }
+
     } else {
        currentThread->space->FinishUserThreads();
        currentThread->Finish();
     }
-     
-    DEBUG('x', "DEBUG FinishUserThreads last step \n");
-
-
-    
 }
 
 #endif // CHANGED
