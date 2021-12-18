@@ -133,15 +133,15 @@ AddrSpace::AddrSpace (OpenFile * executable)
         //pageTable[i].physicalPage = i + 1;	// for now, phys page # = virtual page #
 
       //Action I.6
-        DEBUG('x', "AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = %d\n", i);
+        //DEBUG('x', "AddrSpace initialization : before pageprovider.getEmptyPage : loop turn = %d\n", i);
 
         mutex_reserved_page->P();
         int emptyPageIndex = pageProvider->GetEmptyPage();
-        DEBUG('x', "AddrSpace initialization : pageprovider.getEmptyPage returns : %d\n", emptyPageIndex);
+        //DEBUG('x', "AddrSpace initialization : pageprovider.getEmptyPage returns : %d\n", emptyPageIndex);
         pageTable[i].physicalPage = emptyPageIndex;	
         mutex_reserved_page->V();
 
-        DEBUG('x', "AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = %d\n", i);
+        //DEBUG('x', "AddrSpace initialization : after pageprovider.getEmptyPage : loop turn = %d\n", i);
         #endif //CHANGED 
 
 	    pageTable[i].valid = TRUE;
@@ -210,7 +210,6 @@ AddrSpace::AddrSpace (OpenFile * executable)
 AddrSpace::~AddrSpace () // we will use pageProvider.releasePage()
 {
     #ifdef CHANGED
-    DEBUG('x', "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOo\n");
     for (unsigned int i = 0; i < numPages; i++)
     {
         //if(pageTable[i].valid == FALSE){
@@ -223,7 +222,6 @@ AddrSpace::~AddrSpace () // we will use pageProvider.releasePage()
     pageTable = NULL;
 
     AddrSpaceList.Remove(this);
-    DEBUG('x', "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n");
 }
 
 //----------------------------------------------------------------------
@@ -292,7 +290,7 @@ AddrSpace::AllocateUserStack(){
     int index_check = currentThread->getIndex();
 
 
-    DEBUG('x', "DEBUG Allocate a new stack with section %d\n", index_map);
+    //DEBUG('x', "DEBUG Allocate a new stack with section %d\n", index_map);
 
     if(index_check != -1){
         index_map = index_check;
@@ -304,12 +302,12 @@ AddrSpace::AllocateUserStack(){
         //mutex_countingThread->V();
 
         // Set location of our new user thread's stack start
-        machine->WriteRegister (StackReg, (numPages * PageSize) - (256 * index_map) - 16);
-        DEBUG ('a', "Initializing stack register to 0x%x\n", numPages * PageSize - (256 * index_map) - 16);
-        addr = machine->ReadRegister(StackReg);
+        //machine->WriteRegister (StackReg, (numPages * PageSize) - (256 * index_map) - 16);
+        //DEBUG ('a', "Initializing stack register to 0x%x\n", numPages * PageSize - (256 * index_map) - 16);
+       // addr = machine->ReadRegister(StackReg);
 
         // return the address of the beginning of the user thread's stack
-        return addr;
+        return (numPages * PageSize) - (256 * index_map) - 16;
     }
     else{
         return -1;
@@ -327,64 +325,10 @@ int AddrSpace::FindIndexStack(){
 */
 void 
 AddrSpace::FinishUserThreads(){
-    /*
-    DEBUG('x', "Debug : finish user thread begin (count = %d)\n", threadCount);
-
-    //if I am the last, I stop nachos process
-    if(threadCount == 0){
-
-
-        DEBUG('x', "----------------------------\n");
-
-
-        
-
-        //free the process ressources
-        //delete currentThread->space;
-        //currentThread->space = NULL;
-
-        //check if it's the last process to exit
-        DEBUG('x', "DEBUG : before check if it is the last process to ending all / processCount = %d \n", processCount);
-        if(processCount == 0){
-            interrupt->Powerdown ();
-        } else {
-            DEBUG('x', "DEBUG : Finnish last User Thread, before curretnThread->Finnish() / currentThread = %d\n", currentThread);
-            //currentThread->Finish();
-
-
-
-            //decrement process counter
-            mutex_countingProcess->P();
-            processCount--;
-            DEBUG('x', "Decrementation of process = %d / currentThread = %d\n", processCount, currentThread);
-            mutex_countingProcess->V();
-
-
-            delete currentThread->space;
-            currentThread->space = NULL;
-        }
-
-    } else {
-
-        mutex_countingThread->P(); // To protect thread counting and bitmap clearing from other thread actions
-
-        stack_map->Clear(index_map);
-        DEBUG('x', "DEBUG BitMap.Clear free the section %d\n", index_map);
-        threadCount--;
-
-        mutex_countingThread->V();
-
-        waiting_stack_map->V(); // to notify that a thread is finnished ( and awake a new one if it is waiting to be allocated )
-    }
-     
-    DEBUG('x', "DEBUG FinishUserThreads last step \n");
-    */
     mutex_countingThread->P(); // To protect thread counting and bitmap clearing from other thread actions
     index_map = currentThread->getIndex();
-    DEBUG('x', "DEBUG BitMap.Clear will free the section %d\n", index_map);
+    DEBUG('x', "DEBUG BitMap.Clear will free the section %d, map %p %p \n", index_map, stack_map, mutex_countingThread);
     stack_map->Clear(index_map);
-        
-    //threadCount--;
 
     mutex_countingThread->V();
 }   

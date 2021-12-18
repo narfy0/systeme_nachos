@@ -46,7 +46,7 @@ int PageProvider::GetEmptyPage(){
         */
 
         //initialize found page to 0 (thanks to memeset)
-        DEBUG('x', "PageProvider getEmptyPage : before memeset\n");
+        //DEBUG('x', "PageProvider getEmptyPage : before memeset\n");
 
         if(freePageIndex != -1){
             mutex_lockReserved->P();
@@ -55,7 +55,7 @@ int PageProvider::GetEmptyPage(){
             memset(&(machine->mainMemory[freePageIndex * PageSize]), 0, PageSize);
         }
 
-        DEBUG('x', "PageProvider getEmptyPage : after memset (returned value = %d)\n", freePageIndex);
+        //DEBUG('x', "PageProvider getEmptyPage : after memset (returned value = %d)\n", freePageIndex);
 
     //}
     
@@ -82,7 +82,7 @@ int PageProvider::NumAvailPage(){
     //get number of avaible free page reading the bitmap
     int nbFreePage = physicalPageTable_map->NumClear(); // - nulber of reserved page
 
-    DEBUG('x', "PageProvider number of available pages = %d\n", nbFreePage);
+    //DEBUG('x', "PageProvider number of available pages = %d\n", nbFreePage);
     return nbFreePage - nbReserved;
 }
 

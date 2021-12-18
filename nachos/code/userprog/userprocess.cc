@@ -32,7 +32,6 @@ int doForkExec(const char *filename){
       DEBUG('x', "Debug : doForkExec, after addrspace creation  \n");
 
     }catch(threadException e){
-      DEBUG('x', "ERROR \n");
       delete executable;
       currentThread->setIndex(savedIndex); // to restore currentThread index in stack
 
@@ -40,7 +39,12 @@ int doForkExec(const char *filename){
     }
     
     
-    
+    //increment the count of process 
+    mutex_countingProcess->P();
+    processCount++;
+    DEBUG('x', "Incrementation of process = %d \n", processCount);
+    mutex_countingProcess->V();
+
     //create a kernel thread
     Thread *kernelThread = new Thread("new_process_thread");
     DEBUG('x', "Debug : doForkExec, new kernel thread created \n");
@@ -52,16 +56,9 @@ int doForkExec(const char *filename){
     // close file
     delete executable;
 
-    //increment the count of process 
-    mutex_countingProcess->P();
-    processCount++;
-    DEBUG('x', "Incrementation of process = %d \n", processCount);
-    mutex_countingProcess->V();
-    
+    kernelThread->Start(StartUserProc, (void*) 1);
 
-    kernelThread->Start(StartUserProc, NULL);
-
-    return 0;
+    return 1;
 }
 
 void StartUserProc(void *arg){

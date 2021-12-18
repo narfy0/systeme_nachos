@@ -32,6 +32,8 @@ ConsoleDriver::~ConsoleDriver()
     delete console;
     delete writeDone;
     delete readAvail;
+    delete thread_charSemaphore;
+    delete thread_stringSemaphore;
 }
 
 void ConsoleDriver::PutChar(int ch)

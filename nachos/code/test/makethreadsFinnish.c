@@ -13,7 +13,7 @@ main()
 {
     ThreadCreate(printChar, 'a');
 
-    PutChar('&');
+    //PutChar('&');
     ThreadExit();
 }
 

@@ -18,10 +18,10 @@ void testActionUserPages1_manyThreads(){
 main()
 {
     //test action II.2
-    testActionUserPages0();
+    //testActionUserPages0();
 
     //test action II.3
-    //testActionUserPages1();
+    testActionUserPages1();
     //testActionUserPages1_manyThreads();
 
     //from action II.1
